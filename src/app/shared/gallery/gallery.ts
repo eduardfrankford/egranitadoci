@@ -30,13 +30,28 @@ export class Gallery {
   readonly label = input<string>('Bildergalerie');
   /** Anzahl der ersten Bilder, die priorisiert (eager) geladen werden – für Galerien im sichtbaren Bereich. */
   readonly eager = input<number>(0);
+  /** Optionale sizes-Angabe, wenn die Galerie nicht die volle Content-Breite einnimmt. */
+  readonly sizesOverride = input<string | undefined>(undefined);
 
   readonly aspectCss = computed(() => (this.aspect() ? this.aspect()!.replace(':', ' / ') : null));
-  readonly sizes = computed(() =>
-    this.columns() <= 2
-      ? '(min-width: 1440px) 600px, (min-width: 640px) 45vw, 95vw'
-      : '(min-width: 1440px) 400px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 95vw',
+  readonly sizes = computed(
+    () =>
+      this.sizesOverride() ??
+      (this.columns() <= 2
+        ? '(min-width: 1440px) 600px, (min-width: 640px) 45vw, 95vw'
+        : '(min-width: 1440px) 400px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 95vw'),
   );
+  /** Priorisiert geladene Bilder: beim Masonry-Layout (CSS columns) die Spaltenanfänge, sonst die erste Reihe. */
+  readonly eagerSet = computed(() => {
+    const n = this.images().length;
+    const cols = this.columns();
+    const count = Math.min(this.eager(), n);
+    if (this.layout() === 'masonry') {
+      const perCol = Math.ceil(n / cols);
+      return new Set(Array.from({ length: Math.min(count, cols) }, (_, k) => k * perCol));
+    }
+    return new Set(Array.from({ length: count }, (_, k) => k));
+  });
 
   private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dlg');
   readonly current = signal<number | null>(null);

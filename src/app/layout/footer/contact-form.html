@@ -55,7 +55,7 @@
       [attr.aria-describedby]="invalid('phone') ? 'cf-phone-error' : null"
     />
     @if (invalid('phone')) {
-      <p class="error" role="alert">
+      <p id="cf-phone-error" class="error" role="alert">
         Bitte nur Ziffern und Telefonzeichen (+, -, /, Leerzeichen) verwenden.
       </p>
     }
@@ -67,6 +67,7 @@
       id="cf-message"
       formControlName="message"
       rows="4"
+      maxlength="4000"
       placeholder="Schreibe eine Nachricht"
     ></textarea>
   </div>
@@ -77,6 +78,7 @@
       id="cf-source"
       formControlName="source"
       rows="2"
+      maxlength="300"
       placeholder="Google / Social Media / Bekannte …"
     ></textarea>
   </div>

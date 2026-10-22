@@ -8,6 +8,7 @@ import { Faq } from '../../shared/faq/faq';
 import { Gallery } from '../../shared/gallery/gallery';
 import { ImgDirective } from '../../shared/img.directive';
 import { ScrollToDirective } from '../../shared/scroll-to.directive';
+import { BaseHrefPipe } from '../../shared/base-href.pipe';
 import { TrustHtmlPipe } from '../../shared/trust-html.pipe';
 
 /**
@@ -17,7 +18,7 @@ import { TrustHtmlPipe } from '../../shared/trust-html.pipe';
  */
 @Component({
   selector: 'app-content-page',
-  imports: [RouterLink, ImgDirective, Gallery, Faq, TrustHtmlPipe, ScrollToDirective],
+  imports: [RouterLink, ImgDirective, Gallery, Faq, TrustHtmlPipe, BaseHrefPipe, ScrollToDirective],
   templateUrl: './content-page.html',
   styleUrl: './content-page.scss',
 })
@@ -25,8 +26,13 @@ export class ContentPage implements OnInit {
   readonly page = input.required<PageDef>();
   readonly site = SITE;
   private readonly seo = inject(SeoService);
-  /** Index der ersten Galerie: deren erste Bilder sind "above the fold" und werden priorisiert geladen. */
-  readonly firstGallery = computed(() => this.page().blocks.findIndex((b) => b.type === 'gallery'));
+  /** Index der ersten Galerie, falls sie ohne vorangehendes Hero-Bild "above the fold" liegt (priorisiertes Laden). */
+  readonly firstGallery = computed(() => {
+    const blocks = this.page().blocks;
+    const i = blocks.findIndex((b) => b.type === 'gallery');
+    const heroBefore = i > 0 && blocks.slice(0, i).some((b) => b.type === 'image');
+    return heroBefore ? -1 : i;
+  });
 
   ngOnInit(): void {
     this.applySeo(this.page());
@@ -39,7 +45,8 @@ export class ContentPage implements OnInit {
   /** Interne Sprungmarken in Fließtexten (z. B. Inhaltsverzeichnis der Datenschutzerklärung) ohne Seitenneuladen. */
   onProseClick(event: MouseEvent): void {
     const a = (event.target as HTMLElement | null)?.closest('a');
-    if (!a || !a.hash || a.origin !== location.origin || a.pathname !== location.pathname) return;
+    if (!a || !a.hash || a.origin !== location.origin) return;
+    // Nur Sprungmarken auf der aktuellen Seite abfangen (IDs sind seitenweit eindeutig)
     const target = document.getElementById(decodeURIComponent(a.hash.slice(1)));
     if (!target) return;
     event.preventDefault();
@@ -91,7 +98,6 @@ export class ContentPage implements OnInit {
       case 'contact':
         jsonLd.push(
           schema.webPage(page, 'ContactPage'),
-          schema.localBusiness(),
           schema.breadcrumb([
             { name: 'Home', path: '/' },
             { name: 'Kontakt', path },

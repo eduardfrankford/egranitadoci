@@ -177,7 +177,8 @@ ol {
   margin: 0 0 1em;
 }
 
-li + li {
+.prose li + li,
+.answer li + li {
   margin-top: 0.3em;
 }
 

@@ -16,7 +16,7 @@
         <div
           class="prose"
           [class.prose--center]="page().kind !== 'legal'"
-          [innerHTML]="b.html | trustHtml"
+          [innerHTML]="b.html | baseHref | trustHtml"
           (click)="onProseClick($event)"
         ></div>
       }

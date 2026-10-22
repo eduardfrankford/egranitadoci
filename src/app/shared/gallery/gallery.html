@@ -19,7 +19,7 @@
           [alt]="img.alt"
           [sizes]="sizes()"
           [maxWidth]="960"
-          [priority]="i < eager()"
+          [priority]="eagerSet().has(i)"
         />
       </button>
     </li>

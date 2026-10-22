@@ -60,7 +60,6 @@
         type="button"
         class="play-toggle"
         (click)="toggleAutoplay()"
-        [attr.aria-pressed]="stopped()"
         [attr.aria-label]="
           stopped() ? 'Automatischen Bildwechsel starten' : 'Automatischen Bildwechsel anhalten'
         "

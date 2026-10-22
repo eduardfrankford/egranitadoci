@@ -11,7 +11,7 @@ Plugins – damit keine WordPress-Angriffsfläche mehr.
 | Hosting | GitHub Pages über GitHub Actions (`.github/workflows/deploy.yml`) |
 | Bilder | 278 Fotos als WebP in 4 Breiten (480/960/1440/1920 px) in `public/img`, Manifest in `src/app/data/images.ts` |
 | Fonts | Italiana + PT Sans **selbst gehostet** (`@fontsource`), keine Google-Fonts-Requests mehr (DSGVO) |
-| Tests | Vitest (`npm test`), Playwright-Audit (`npm run audit`) |
+| Tests | Vitest (`npm test`, 17 Tests), Playwright-Audit (`npm run audit`, nach `npx playwright install chromium`) |
 
 ## Schnellstart
 
@@ -60,6 +60,8 @@ npm run images -- /pfad/zu/den/originalen   # erzeugt public/img/<key>-<breite>.
 
 Der Bild-Key entspricht dem Dateinamen (kleingeschrieben, Sonderzeichen → `-`). Danach den Key in der
 Galerie der Seite mit einem beschreibenden `alt`-Text eintragen. Vorhandene Varianten werden übersprungen.
+Social-Media-Vorschaubilder (`public/og/<slug>.jpg`, 1200 × 630) werden nicht automatisch erzeugt – für
+neue Seiten einmalig mit `sharp` zuschneiden (Beispiel in `tools/images.mjs`-Stil) oder ein bestehendes verwenden.
 
 ## Kontaktformular (Spam-Schutz)
 

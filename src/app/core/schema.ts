@@ -116,7 +116,12 @@ export function faqPage(items: FaqItem[]): object {
     mainEntity: items.map((f) => ({
       '@type': 'Question',
       name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: [...f.a, ...(f.list ?? [])].join(' ') },
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          f.a.map((p) => `<p>${p}</p>`).join('') +
+          (f.list?.length ? `<ul>${f.list.map((li) => `<li>${li}</li>`).join('')}</ul>` : ''),
+      },
     })),
   };
 }

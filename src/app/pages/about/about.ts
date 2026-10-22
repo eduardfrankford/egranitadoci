@@ -46,7 +46,6 @@ export class AboutPage implements OnInit {
       image: `og/${page.slug}.jpg`,
       jsonLd: [
         schema.webPage(page, 'AboutPage'),
-        schema.person(),
         schema.breadcrumb([
           { name: 'Home', path: '/' },
           { name: 'Über mich', path: `/${page.slug}/` },

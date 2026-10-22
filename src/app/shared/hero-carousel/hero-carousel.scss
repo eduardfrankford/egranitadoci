@@ -100,7 +100,7 @@
   justify-content: center;
   border-radius: 50%;
   color: #fff;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .play-toggle:hover,
@@ -110,7 +110,7 @@
 
 .dots {
   position: absolute;
-  left: 0;
+  left: 56px;
   right: 56px;
   bottom: 10px;
   z-index: 2;
@@ -148,14 +148,22 @@
   transform: scale(1.3);
 }
 
-@media (max-width: 479px) {
+@media (max-width: 539px) {
   .dots {
+    left: 0;
+    right: 0;
     gap: 0;
+    padding: 0 8px;
+  }
+
+  .play-toggle {
+    bottom: auto;
+    top: 12px;
   }
 
   .dot {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 
   .dot::before {

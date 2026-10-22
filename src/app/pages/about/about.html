@@ -15,6 +15,8 @@
       <app-gallery
         [images]="g.images"
         layout="masonry"
+        [eager]="2"
+        sizesOverride="(min-width: 1440px) 290px, (min-width: 1024px) 21vw, (min-width: 640px) 45vw, 95vw"
         [columns]="2"
         label="Egranita Doci – Fotografin"
       />

@@ -287,10 +287,39 @@ nahezu identisch.
 
 ---
 
+## Zweite Prüfrunde: Code-Review des Neubaus
+
+Nach dem ersten Build wurde der Neubau selbst von sechs unabhängigen Prüfperspektiven (Inhaltstreue,
+SEO/GEO, Barrierefreiheit, Angular/SSR, responsives Layout, Sicherheit/Performance) untersucht; jeder
+Befund wurde von einem zweiten, skeptischen Prüfer gegengeprüft. 16 Befunde wurden bestätigt und
+behoben, 1 wurde verworfen:
+
+| Bereich | Befund im Neubau | Behebung |
+|---|---|---|
+| Inhalt | „Das könnte dich interessieren“: Karte „Herbst Minishooting … #2“ verlinkte in 6 Beiträgen auf Beitrag #1 | Konverter korrigiert, Test prüft Karten-Links |
+| Inhalt | Kindergarten-FAQ „Welche ist die optimale Bekleidung?“ hatte die vierteilige Tipp-Liste verloren | FAQ-Modell um Listen erweitert, Liste wiederhergestellt |
+| Inhalt | Cookie Policy: zerstückelte E-Mail-Adresse, Complianz-Bedienelemente als Text | bereinigt |
+| Inhalt | Datenschutz: Inhaltsverzeichnis verwies auf adsimple.at, Überschriften ohne IDs | interne Anker, IDs erhalten, sanftes Scrollen |
+| Inhalt | Zwischenüberschrift „Die Location“ nicht mehr fett; Newborn-Alt-Texte weniger beschreibend als im Original | fett übernommen, Original-Alt-Texte bevorzugt |
+| SEO | JSON-LD verwies per @id auf Entitäten, die nur auf der Startseite ausgegeben wurden; `makesOffer` statt `hasOfferCatalog`; Bild-URLs auf nicht vorhandene 1440-px-Varianten; fehlendes OG-Bild für Leistungen | ein @graph mit WebSite/LocalBusiness/Person auf jeder Seite, korrekte Property, OG-Bilder |
+| Barrierefreiheit | Karussell ohne Pause-Möglichkeit (WCAG 2.2.2); Kartentitel auf Fotos unter 4,5:1; Untermenü per Fokus sichtbar trotz `aria-expanded="false"`; Esc verlor den Fokus; Formularrahmen/-platzhalter zu kontrastarm, Fehler nicht mit Feldern verknüpft | Pause/Play-Button, dunklerer Verlauf, Untermenü nur per Button/Hover, Fokusführung, Kontraste, `aria-describedby` |
+| Angular | Lightbox ließ die Seite bei Routenwechsel gesperrt; Wischen schloss die Lightbox; `appScrollTo` ignorierte `<base href>` | Aufräumen beim Zerstören, Wisch-Erkennung, `prepareExternalUrl` |
+| Layout | Datenschutz: nicht umbrechende Cookie-Werte in Absätzen; Hero-Ausschnitt 5:2 schnitt Köpfe ab; Lightbox-Pfeile über dem Foto auf Handys; Punkte-Navigation brach um; Footer-Zeile auf Tablets | `overflow-wrap`, 2:1 mit oberem Bildfokus, Pfeile unten, kleinere Punkte, gestapelter Footer |
+| Performance | Galerie-Bilder im sichtbaren Bereich lazy; Fonts erst nach dem CSS entdeckt; zweites Hero-Bild konkurrierte mit dem LCP-Bild; `sizes` zu groß auf breiten Monitoren | erste Galeriebilder priorisiert, Font-Preload mit stabilen Dateinamen, verzögertes Nachladen, gedeckelte `sizes` |
+
+Verworfen: „`@angular/forms` im Hauptbundle für das Footer-Formular“ – messbar unerheblich (ca. 18 KB komprimiert).
+
+Nicht geändert, aber zur Klärung mit der Kundin notiert: zwei unterschiedliche Adressen (Kontakt: Innsbruck,
+Impressum: Hall in Tirol); alte Bild-URLs unter `/wp-content/uploads/` liefern nach dem Umzug 404
+(GitHub Pages kann nicht umleiten – Google indexiert die neuen WebP-Bilder neu).
+
+---
+
 ## Offene Punkte für die Übergabe
 
 1. Formular-Endpunkt (Formspree) in `src/app/core/site.ts` eintragen, sonst öffnet „Absenden“ nur das Mailprogramm.
 2. Domain umstellen: Repository-Variable `CUSTOM_DOMAIN`, DNS beim Provider, „Enforce HTTPS“ (Anleitung im README).
 3. Datenschutzerklärung und Cookie-Policy an den neuen Stand anpassen (keine Cookies/Tracker/WordPress).
 4. Instagram: Rückfrage beim Kunden, was genau nicht funktionierte; Pinterest-Link prüfen.
+6. Adresse vereinheitlichen (Kontakt/Schema: Innsbruck vs. Impressum: Hall in Tirol) – Angabe in `src/app/core/site.ts`.
 5. Nach dem Domainwechsel: Sitemap in der Google Search Console einreichen.

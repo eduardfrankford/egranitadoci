@@ -16,8 +16,10 @@ import { Router } from '@angular/router';
 export class ScrollToDirective {
   readonly appScrollTo = input.required<string>();
   private readonly router = inject(Router);
+  private readonly location = inject(Location);
   readonly href = computed(
-    () => `${this.router.url.split('#')[0].split('?')[0]}#${this.appScrollTo()}`,
+    () =>
+      `${this.location.prepareExternalUrl(this.router.url.split('#')[0].split('?')[0])}#${this.appScrollTo()}`,
   );
 
   onClick(event: MouseEvent): void {
