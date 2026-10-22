@@ -17,9 +17,10 @@
       placeholder="Name"
       required
       [attr.aria-invalid]="invalid('name')"
+      [attr.aria-describedby]="invalid('name') ? 'cf-name-error' : null"
     />
     @if (invalid('name')) {
-      <p class="error" role="alert">Bitte gib deinen Namen an.</p>
+      <p id="cf-name-error" class="error" role="alert">Bitte gib deinen Namen an.</p>
     }
   </div>
 
@@ -33,9 +34,12 @@
       placeholder="E-Mail"
       required
       [attr.aria-invalid]="invalid('email')"
+      [attr.aria-describedby]="invalid('email') ? 'cf-email-error' : null"
     />
     @if (invalid('email')) {
-      <p class="error" role="alert">Bitte gib eine gültige E-Mail-Adresse an.</p>
+      <p id="cf-email-error" class="error" role="alert">
+        Bitte gib eine gültige E-Mail-Adresse an.
+      </p>
     }
   </div>
 
@@ -48,6 +52,7 @@
       autocomplete="tel"
       placeholder="Telefonnummer"
       [attr.aria-invalid]="invalid('phone')"
+      [attr.aria-describedby]="invalid('phone') ? 'cf-phone-error' : null"
     />
     @if (invalid('phone')) {
       <p class="error" role="alert">
@@ -89,6 +94,7 @@
       formControlName="consent"
       required
       [attr.aria-invalid]="invalid('consent')"
+      [attr.aria-describedby]="invalid('consent') ? 'cf-consent-error' : null"
     />
     <label for="cf-consent">
       Ich habe die <a href="datenschutz/">Datenschutzerklärung</a> gelesen und bin einverstanden,
@@ -97,7 +103,9 @@
     </label>
   </div>
   @if (invalid('consent')) {
-    <p class="error" role="alert">Bitte bestätige die Datenschutzerklärung.</p>
+    <p id="cf-consent-error" class="error" role="alert">
+      Bitte bestätige die Datenschutzerklärung.
+    </p>
   }
 
   <div class="actions">

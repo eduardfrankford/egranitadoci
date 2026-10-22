@@ -28,13 +28,13 @@ textarea {
   font: inherit;
   color: var(--c-heading);
   background: var(--c-surface);
-  border: 1px solid var(--c-surface);
+  border: 1px solid #767f80; /* >= 3:1 auf Grau und Weiß (WCAG 1.4.11) */
   padding: 0.8em 1em;
   min-height: 48px;
   transition: border-color 0.2s;
 
   &::placeholder {
-    color: var(--c-muted);
+    color: #6f7879;
   }
 
   &:focus {

@@ -88,7 +88,7 @@ export const page: PageDef = {
         },
         {
           title: 'Herbst Minishooting – Botanischer Garten Innsbruck #2',
-          href: '/herbst-minishooting-botanischer-garten-innsbruck/',
+          href: '/herbst-minishooting-botanischer-garten-innsbruck-2/',
           image: {
             key: 'img-8525-683x1024-1',
             alt: 'Herbst Minishooting – Botanischer Garten Innsbruck #2',

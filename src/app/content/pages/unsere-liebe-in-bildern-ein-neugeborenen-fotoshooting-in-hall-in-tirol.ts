@@ -43,19 +43,19 @@ export const page: PageDef = {
       images: [
         {
           key: 'img-4365-bearbeitet',
-          alt: 'Neugeborenen Foto – Fotoshooting',
+          alt: 'Neugeborenes Baby in Holzkiste – Fotoshooting',
         },
         {
           key: 'img-4373-bearbeitet',
-          alt: 'Neugeborenen Foto2 – Fotoshooting',
+          alt: 'Neugeborenes Baby in Holzkiste – Fotoshooting',
         },
         {
           key: 'img-4380-bearbeitet',
-          alt: 'Neugeborenen Foto3 – Fotoshooting',
+          alt: 'Neugeborenes Baby in Holzkiste – Fotoshooting',
         },
         {
           key: 'img-4428-bearbeitet',
-          alt: 'Neugeborenen Foto4 – Fotoshooting',
+          alt: 'Neugeborenes Baby in Schale – Fotoshooting',
         },
         {
           key: 'img-4461-bearbeitet',
@@ -96,7 +96,7 @@ export const page: PageDef = {
         },
         {
           title: 'Herbst Minishooting – Botanischer Garten Innsbruck #2',
-          href: '/herbst-minishooting-botanischer-garten-innsbruck/',
+          href: '/herbst-minishooting-botanischer-garten-innsbruck-2/',
           image: {
             key: 'img-8525-683x1024-1',
             alt: 'Herbst Minishooting – Botanischer Garten Innsbruck #2',

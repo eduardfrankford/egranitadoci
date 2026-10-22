@@ -11,6 +11,8 @@ export type PageKind = 'service' | 'post' | 'collection' | 'blog' | 'contact' | 
 export interface FaqItem {
   q: string;
   a: string[];
+  /** Optionale Aufzählung, wird nach den Absätzen als Liste gerendert. */
+  list?: string[];
 }
 
 export interface Card {

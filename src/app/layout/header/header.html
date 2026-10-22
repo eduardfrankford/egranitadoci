@@ -14,6 +14,7 @@
   </div>
 
   <button
+    #navToggle
     type="button"
     class="nav-toggle"
     (click)="toggleMenu()"
@@ -61,6 +62,7 @@
       </li>
       <li class="has-sub" routerLinkActive="active-parent" [class.open]="subOpen()">
         <button
+          #subToggle
           type="button"
           class="sub-toggle"
           (click)="toggleSub()"

@@ -86,7 +86,18 @@ for (const [vpName, vp] of Object.entries(viewports)) {
     });
     // Lazy-Bilder fertig laden lassen, bevor der Screenshot entsteht
     await page.waitForLoadState('networkidle');
-    await page.evaluate(() => Promise.all([...document.images].filter((i) => !i.complete).map((i) => new Promise((r) => { i.onload = i.onerror = r; }))));
+    await page.evaluate(() =>
+      Promise.all(
+        [...document.images]
+          .filter((i) => !i.complete)
+          .map(
+            (i) =>
+              new Promise((r) => {
+                i.onload = i.onerror = r;
+              }),
+          ),
+      ),
+    );
     await page.waitForTimeout(300);
     const m = await page.evaluate((vpw) => {
       const de = document.documentElement;
@@ -132,7 +143,8 @@ for (const [vpName, vp] of Object.entries(viewports)) {
     }, vp.width);
     await page.screenshot({ path: `${outDir}/${name}--${vpName}.png`, fullPage: true });
     const issues = [];
-    if (m.scrollWidth > m.innerWidth) issues.push(`overflow ${m.scrollWidth}>${m.innerWidth}`);
+    if (m.scrollWidth > vp.width || m.innerWidth > vp.width)
+      issues.push(`overflow ${m.scrollWidth}>${vp.width} (innerWidth ${m.innerWidth})`);
     if (m.h1.length !== 1) issues.push(`h1=${m.h1.length}`);
     if (!m.description) issues.push('no description');
     if (m.imgsNoAlt) issues.push(`imgs without alt: ${m.imgsNoAlt}`);

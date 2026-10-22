@@ -35,6 +35,13 @@ import { FaqItem } from '../../content/types';
             @for (p of item.a; track $index) {
               <p>{{ p }}</p>
             }
+            @if (item.list?.length) {
+              <ul>
+                @for (li of item.list; track $index) {
+                  <li>{{ li }}</li>
+                }
+              </ul>
+            }
           </div>
         </details>
       }
@@ -78,7 +85,8 @@ import { FaqItem } from '../../content/types';
     .answer {
       padding: 0 0.25rem 1rem;
     }
-    .answer p:last-child {
+    .answer p:last-child,
+    .answer ul:last-child {
       margin-bottom: 0;
     }
   `,

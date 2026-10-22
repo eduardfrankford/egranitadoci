@@ -1,4 +1,4 @@
-import { Component, afterNextRender, inject, signal } from '@angular/core';
+import { Component, ElementRef, afterNextRender, inject, signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SITE } from '../../core/site';
 
@@ -23,6 +23,7 @@ export class ContactForm {
   readonly site = SITE;
   readonly state = signal<FormState>('idle');
   private openedAt = 0;
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
 
   readonly form = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(120)]],
@@ -48,6 +49,10 @@ export class ContactForm {
   async submit(): Promise<void> {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      // Fokus auf das erste fehlerhafte Feld (WCAG 3.3.1)
+      setTimeout(() =>
+        this.host.nativeElement.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus(),
+      );
       return;
     }
     const v = this.form.getRawValue();

@@ -156,3 +156,28 @@
 .lb-next {
   right: 12px;
 }
+
+@media (max-width: 639px) {
+  .lightbox-figure {
+    padding: 56px 8px 76px;
+  }
+
+  .lightbox-figure img {
+    max-height: calc(100dvh - 140px);
+  }
+
+  .lb-prev,
+  .lb-next {
+    top: auto;
+    bottom: 14px;
+    transform: none;
+  }
+
+  .lb-prev {
+    left: 16px;
+  }
+
+  .lb-next {
+    right: 16px;
+  }
+}

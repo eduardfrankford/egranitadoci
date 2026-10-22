@@ -17,6 +17,7 @@
           class="prose"
           [class.prose--center]="page().kind !== 'legal'"
           [innerHTML]="b.html | trustHtml"
+          (click)="onProseClick($event)"
         ></div>
       }
       @case ('image') {
@@ -38,6 +39,7 @@
           [columns]="b.columns"
           [aspect]="b.aspect"
           [label]="(page().h1 ?? page().title) + ' – Galerie'"
+          [eager]="$index === firstGallery() ? b.columns : 0"
         />
       }
       @case ('cta') {

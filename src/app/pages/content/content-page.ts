@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, input } from '@angular/core';
+import { Component, OnInit, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Block, PageDef } from '../../content/types';
 import * as schema from '../../core/schema';
@@ -25,6 +25,8 @@ export class ContentPage implements OnInit {
   readonly page = input.required<PageDef>();
   readonly site = SITE;
   private readonly seo = inject(SeoService);
+  /** Index der ersten Galerie: deren erste Bilder sind "above the fold" und werden priorisiert geladen. */
+  readonly firstGallery = computed(() => this.page().blocks.findIndex((b) => b.type === 'gallery'));
 
   ngOnInit(): void {
     this.applySeo(this.page());
@@ -32,6 +34,18 @@ export class ContentPage implements OnInit {
 
   isAnchor(href: string): boolean {
     return href.startsWith('#');
+  }
+
+  /** Interne Sprungmarken in Fließtexten (z. B. Inhaltsverzeichnis der Datenschutzerklärung) ohne Seitenneuladen. */
+  onProseClick(event: MouseEvent): void {
+    const a = (event.target as HTMLElement | null)?.closest('a');
+    if (!a || !a.hash || a.origin !== location.origin || a.pathname !== location.pathname) return;
+    const target = document.getElementById(decodeURIComponent(a.hash.slice(1)));
+    if (!target) return;
+    event.preventDefault();
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    history.replaceState(history.state, '', a.hash);
   }
 
   private applySeo(page: PageDef): void {

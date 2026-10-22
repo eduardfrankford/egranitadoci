@@ -18,7 +18,12 @@
 }
 
 .contact .eyebrow {
-  margin-bottom: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.service-area {
+  max-width: 60ch;
+  margin: 0 auto 2rem;
 }
 
 .social {
@@ -108,7 +113,7 @@
   color: var(--c-heading);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .bottom {
     flex-direction: column-reverse;
     justify-content: center;

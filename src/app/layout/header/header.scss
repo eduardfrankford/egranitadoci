@@ -118,8 +118,7 @@
 }
 
 @media (hover: hover) and (min-width: 1024px) {
-  .has-sub:hover .sub-menu,
-  .has-sub:focus-within .sub-menu {
+  .has-sub:hover .sub-menu {
     display: block;
   }
 }

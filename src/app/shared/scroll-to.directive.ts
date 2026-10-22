@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Directive, computed, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 

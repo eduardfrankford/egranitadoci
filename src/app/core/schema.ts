@@ -43,7 +43,7 @@ export function localBusiness(): object {
       'Tauffotografie',
       'Kindergartenfotografie',
     ],
-    makesOffer: {
+    hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Fotoshootings',
       itemListElement: [
@@ -93,6 +93,11 @@ export function webSite(): object {
   };
 }
 
+/** Auf jeder Seite mitgelieferte Entitäten, auf die per @id verwiesen wird. */
+export function sharedEntities(): object[] {
+  return [webSite(), localBusiness(), person()];
+}
+
 export function breadcrumb(items: { name: string; path: string }[]): object {
   return {
     '@type': 'BreadcrumbList',
@@ -111,7 +116,7 @@ export function faqPage(items: FaqItem[]): object {
     mainEntity: items.map((f) => ({
       '@type': 'Question',
       name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a.join(' ') },
+      acceptedAnswer: { '@type': 'Answer', text: [...f.a, ...(f.list ?? [])].join(' ') },
     })),
   };
 }
@@ -130,7 +135,9 @@ export function webPage(page: PageDef, type = 'WebPage'): object {
       ? {
           primaryImageOfPage: {
             '@type': 'ImageObject',
-            url: `${SITE.url}/img/${page.ogImage}-1440.webp`,
+            url: `${SITE.url}/og/${page.slug}.jpg`,
+            width: 1200,
+            height: 630,
           },
         }
       : {}),
@@ -163,6 +170,6 @@ export function blogPosting(page: PageDef): object {
     dateModified: page.dateModified ?? page.datePublished,
     author: { '@id': PERSON_ID },
     publisher: { '@id': BUSINESS_ID },
-    ...(page.ogImage ? { image: `${SITE.url}/img/${page.ogImage}-1440.webp` } : {}),
+    ...(page.ogImage ? { image: `${SITE.url}/og/${page.slug}.jpg` } : {}),
   };
 }

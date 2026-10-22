@@ -38,7 +38,7 @@ describe('SeoService', () => {
     expect(document.title).toBe('Egranita Doci – Fotografin');
   });
 
-  it('ersetzt JSON-LD bei jedem Aufruf statt es anzuhäufen', () => {
+  it('liefert einen @graph mit gemeinsamen Entitäten und ersetzt ihn bei jedem Aufruf', () => {
     seo.apply({
       title: 'A',
       path: '/a/',
@@ -47,7 +47,13 @@ describe('SeoService', () => {
     seo.apply({ title: 'B', path: '/b/', jsonLd: [{ '@type': 'WebPage' }] });
     const scripts = document.querySelectorAll('script[type="application/ld+json"]');
     expect(scripts.length).toBe(1);
-    expect(JSON.parse(scripts[0].textContent ?? '{}')['@context']).toBe('https://schema.org');
+    const graph = JSON.parse(scripts[0].textContent ?? '{}');
+    expect(graph['@context']).toBe('https://schema.org');
+    const types = graph['@graph'].map((n: { '@type': string | string[] }) => n['@type']);
+    expect(types).toContainEqual('WebSite');
+    expect(types).toContainEqual('Person');
+    expect(types).toContainEqual('WebPage');
+    expect(types).not.toContainEqual('BreadcrumbList');
   });
 
   it('setzt noindex, wenn gewünscht', () => {

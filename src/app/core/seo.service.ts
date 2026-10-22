@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/core';
 import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import * as schema from './schema';
 import { SITE } from './site';
 
 declare const PREVIEW_BUILD: boolean;
@@ -98,14 +99,16 @@ export class SeoService {
     link.setAttribute('href', href);
   }
 
+  /** Ein JSON-LD-Block pro Seite: gemeinsame Entitäten (WebSite, LocalBusiness, Person) + seitenspezifische Objekte als @graph. */
   private setJsonLd(objects: object[]): void {
     this.doc.head.querySelectorAll('script[data-jsonld]').forEach((s) => s.remove());
-    for (const obj of objects) {
-      const script = this.doc.createElement('script');
-      script.type = 'application/ld+json';
-      script.setAttribute('data-jsonld', '');
-      script.text = JSON.stringify({ '@context': 'https://schema.org', ...obj });
-      this.doc.head.appendChild(script);
-    }
+    const script = this.doc.createElement('script');
+    script.type = 'application/ld+json';
+    script.setAttribute('data-jsonld', '');
+    script.text = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [...schema.sharedEntities(), ...objects],
+    });
+    this.doc.head.appendChild(script);
   }
 }

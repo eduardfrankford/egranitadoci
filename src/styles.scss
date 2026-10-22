@@ -233,17 +233,19 @@ hr,
 .prose {
   max-width: var(--prose-max);
   margin-inline: auto;
+  overflow-wrap: anywhere; /* lange URLs/Cookie-Werte (Datenschutz) brechen um */
+  hyphens: auto;
 
   a {
     color: var(--c-heading);
     text-decoration: underline;
-    text-decoration-color: var(--c-line);
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
-    overflow-wrap: anywhere;
   }
 
   a:hover {
-    text-decoration-color: var(--c-heading);
+    color: var(--c-black);
   }
 
   h2,

@@ -80,6 +80,12 @@ export const page: PageDef = {
           a: [
             'Wichtig ist, dass sich die Kinder beim Shooting wohl fühlen. Folgende Tipps können aber bei der Kleiderauswahl helfen:',
           ],
+          list: [
+            'vermeide großflächige, kontrastreiche Muster oder Logos',
+            'Kinder lieben Klebetattoos, wenn möglich diese beim Fototag vermeiden',
+            'wenn möglich zu große/dominierende Haarschmuck vermeiden',
+            'optimale Kleiderfarben sind neutrale Töne wie weiß, grau, beige, blau und Jeans-farbe',
+          ],
         },
         {
           q: 'Finden am Shootingtag auch Familienshootings statt?',

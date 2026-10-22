@@ -113,7 +113,13 @@
   gap: 0.8rem;
   padding: 1.2rem;
   text-align: center;
-  background: linear-gradient(180deg, rgba(20, 22, 23, 0.15), rgba(20, 22, 23, 0.55));
+  background: linear-gradient(
+    180deg,
+    rgba(20, 22, 23, 0.45),
+    rgba(20, 22, 23, 0.62) 30%,
+    rgba(20, 22, 23, 0.62) 70%,
+    rgba(20, 22, 23, 0.8)
+  );
   transition: background 0.3s;
 }
 
@@ -142,7 +148,13 @@
 
 .card:hover .card-body,
 .card:focus-visible .card-body {
-  background: linear-gradient(180deg, rgba(20, 22, 23, 0.3), rgba(20, 22, 23, 0.7));
+  background: linear-gradient(
+    180deg,
+    rgba(20, 22, 23, 0.55),
+    rgba(20, 22, 23, 0.75) 30%,
+    rgba(20, 22, 23, 0.75) 70%,
+    rgba(20, 22, 23, 0.9)
+  );
 }
 
 .card:hover .card-more {

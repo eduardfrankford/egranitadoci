@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { filter } from 'rxjs';
@@ -21,6 +21,9 @@ export class Header {
   readonly services = SERVICE_NAV;
   readonly menuOpen = signal(false);
   readonly subOpen = signal(false);
+  private readonly navToggle = viewChild<ElementRef<HTMLButtonElement>>('navToggle');
+  private readonly subToggle = viewChild<ElementRef<HTMLButtonElement>>('subToggle');
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
 
   constructor() {
     inject(Router)
@@ -45,8 +48,18 @@ export class Header {
     this.subOpen.set(false);
   }
 
+  /** Esc schließt Menüs; lag der Fokus in einem schließenden Menü, wandert er auf den passenden Toggle (WCAG 2.4.3). */
   @HostListener('document:keydown.escape')
   onEscape(): void {
+    if (!this.menuOpen() && !this.subOpen()) return;
+    const active = document.activeElement;
+    const inSub =
+      !!active && !!this.host.nativeElement.querySelector('.sub-menu')?.contains(active);
+    const inNav =
+      !!active && !!this.host.nativeElement.querySelector('.site-nav')?.contains(active);
+    const wasMenuOpen = this.menuOpen();
     this.closeAll();
+    if (wasMenuOpen && inNav) this.navToggle()?.nativeElement.focus();
+    else if (inSub) this.subToggle()?.nativeElement.focus();
   }
 }

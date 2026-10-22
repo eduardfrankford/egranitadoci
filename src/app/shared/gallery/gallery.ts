@@ -1,4 +1,13 @@
-import { Component, ElementRef, computed, input, signal, viewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  computed,
+  inject,
+  input,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { ImageRef } from '../../content/types';
 import { ImgDirective } from '../img.directive';
 
@@ -19,12 +28,14 @@ export class Gallery {
   /** z. B. '9:16' oder '4:3' (nur Grid-Layout). */
   readonly aspect = input<string | undefined>(undefined);
   readonly label = input<string>('Bildergalerie');
+  /** Anzahl der ersten Bilder, die priorisiert (eager) geladen werden – für Galerien im sichtbaren Bereich. */
+  readonly eager = input<number>(0);
 
   readonly aspectCss = computed(() => (this.aspect() ? this.aspect()!.replace(':', ' / ') : null));
   readonly sizes = computed(() =>
     this.columns() <= 2
-      ? '(min-width: 640px) 45vw, 95vw'
-      : '(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 95vw',
+      ? '(min-width: 1440px) 600px, (min-width: 640px) 45vw, 95vw'
+      : '(min-width: 1440px) 400px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 95vw',
   );
 
   private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dlg');
@@ -34,7 +45,16 @@ export class Gallery {
     return i === null ? null : this.images()[i];
   });
   private pointerStartX: number | null = null;
+  private swiped = false;
   private lastTrigger: HTMLElement | null = null;
+
+  constructor() {
+    // Routenwechsel bei offener Lightbox (z. B. Browser-Zurück): <dialog> feuert kein close-Event,
+    // der Body bliebe gesperrt -> Sperre beim Zerstören der Komponente aufheben.
+    inject(DestroyRef).onDestroy(() => {
+      if (this.current() !== null) document.body.style.overflow = '';
+    });
+  }
 
   open(index: number, trigger?: EventTarget | null): void {
     this.lastTrigger = trigger instanceof HTMLElement ? trigger : null;
@@ -78,6 +98,10 @@ export class Gallery {
 
   /** Klick auf den Hintergrund (nicht auf Bild/Buttons) schließt. */
   onBackdropClick(event: MouseEvent): void {
+    if (this.swiped) {
+      this.swiped = false;
+      return;
+    }
     if (event.target === this.dialog().nativeElement) this.close();
   }
 
@@ -89,7 +113,8 @@ export class Gallery {
     if (this.pointerStartX === null) return;
     const dx = event.clientX - this.pointerStartX;
     this.pointerStartX = null;
-    if (Math.abs(dx) > 50) {
+    this.swiped = Math.abs(dx) > 50;
+    if (this.swiped) {
       if (dx < 0) this.next();
       else this.prev();
     }

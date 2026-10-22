@@ -2,7 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HERO_SLIDES } from '../../content/pages/home-data';
 import { ImageKey } from '../../data/images';
-import * as schema from '../../core/schema';
 import { SeoService } from '../../core/seo.service';
 import { SITE } from '../../core/site';
 import { HeroCarousel } from '../../shared/hero-carousel/hero-carousel';
@@ -76,7 +75,23 @@ export class HomePage implements OnInit {
         'Familienfotografin, Hochzeitsfotografin und Newborn-Fotografin in Innsbruck und Hall in Tirol. Natürliche, emotionale Fotos ohne Posen – Schwangerschaft, Newborn, Familie, Hochzeit, Taufe und Kindergarten.',
       path: '/',
       image: 'og/default.jpg',
-      jsonLd: [schema.webSite(), schema.localBusiness(), schema.person()],
+      jsonLd: [
+        {
+          '@type': 'WebPage',
+          '@id': `${SITE.url}/#webpage`,
+          url: `${SITE.url}/`,
+          name: 'Egranita Doci – Fotografin in Innsbruck & Tirol',
+          inLanguage: SITE.language,
+          isPartOf: { '@id': `${SITE.url}/#website` },
+          about: { '@id': `${SITE.url}/#business` },
+          primaryImageOfPage: {
+            '@type': 'ImageObject',
+            url: `${SITE.url}/og/default.jpg`,
+            width: 1200,
+            height: 630,
+          },
+        },
+      ],
     });
   }
 }

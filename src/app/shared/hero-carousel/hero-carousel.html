@@ -55,6 +55,25 @@
         />
       </svg>
     </button>
+    @if (autoplay()) {
+      <button
+        type="button"
+        class="play-toggle"
+        (click)="toggleAutoplay()"
+        [attr.aria-pressed]="stopped()"
+        [attr.aria-label]="
+          stopped() ? 'Automatischen Bildwechsel starten' : 'Automatischen Bildwechsel anhalten'
+        "
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          @if (stopped()) {
+            <path d="M8 5v14l11-7z" fill="currentColor" />
+          } @else {
+            <path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor" />
+          }
+        </svg>
+      </button>
+    }
     <div class="dots" role="tablist" aria-label="Bild auswählen">
       @for (s of slides(); track s.key; let i = $index) {
         <button
@@ -63,7 +82,7 @@
           class="dot"
           [class.active]="i === index()"
           [attr.aria-selected]="i === index()"
-          (click)="go(i)"
+          (click)="select(i)"
           [attr.aria-label]="'Bild ' + (i + 1)"
         ></button>
       }

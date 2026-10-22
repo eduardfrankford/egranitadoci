@@ -36,7 +36,9 @@ describe('Seiteninhalte', () => {
       const h1s = p.blocks.filter((b) => b.type === 'h1');
       expect(h1s.length, `${p.slug}: H1`).toBe(1);
       expect(p.title.length, `${p.slug}: Titel`).toBeGreaterThan(5);
-      expect(p.title.length, `${p.slug}: Titel zu lang`).toBeLessThanOrEqual(p.kind === 'post' ? 90 : 75);
+      expect(p.title.length, `${p.slug}: Titel zu lang`).toBeLessThanOrEqual(
+        p.kind === 'post' ? 90 : 75,
+      );
       expect(p.description?.length ?? 0, `${p.slug}: Description`).toBeGreaterThan(40);
       expect(p.description?.length ?? 0, `${p.slug}: Description zu lang`).toBeLessThanOrEqual(160);
     }
@@ -56,6 +58,20 @@ describe('Seiteninhalte', () => {
         for (const r of refs) {
           expect(IMAGES[r.key], `${p.slug}: Bild ${r.key}`).toBeDefined();
           expect(r.alt.length, `${p.slug}: Alt-Text für ${r.key}`).toBeGreaterThan(8);
+        }
+      }
+    }
+  });
+
+  it('verlinkt Karten eindeutig und nur auf vorhandene Seiten', () => {
+    for (const p of pages) {
+      for (const b of p.blocks) {
+        if (b.type !== 'cards') continue;
+        const hrefs = b.items.map((c) => c.href);
+        expect(new Set(hrefs).size, `${p.slug}: doppelte Karten-Links`).toBe(hrefs.length);
+        for (const href of hrefs) {
+          const slug = href.replace(/^\/|\/$/g, '');
+          expect(PAGE_SLUGS, `${p.slug}: Karten-Link ${href}`).toContain(slug);
         }
       }
     }

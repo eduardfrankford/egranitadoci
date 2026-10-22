@@ -14,7 +14,13 @@
         (click)="open(i, $event.currentTarget)"
         [attr.aria-label]="'Bild vergrößern: ' + img.alt"
       >
-        <img [appImg]="img.key" [alt]="img.alt" [sizes]="sizes()" [maxWidth]="960" />
+        <img
+          [appImg]="img.key"
+          [alt]="img.alt"
+          [sizes]="sizes()"
+          [maxWidth]="960"
+          [priority]="i < eager()"
+        />
       </button>
     </li>
   }
