@@ -18,17 +18,16 @@ alle Nachher-Bilder in [screenshots/after](screenshots/after).
 | 5 | Instagram-Verlinkung | – | geprüft, Link korrekt (siehe Text) |
 | 6 | Kontaktformular ohne Spam-Schutz | hoch | behoben (Endpunkt eintragen) |
 | 7 | SEO-Mängel: keine Meta-Descriptions, `lang="en-US"`, fehlende H1, keine Alt-Texte, kein Open Graph, keine strukturierten Daten | hoch | behoben |
-| 8 | Große graue Leerflächen vor dem Footer (Home, Über mich, Shootings) | mittel | behoben |
-| 9 | Footer-Layout: Fußnavigation bricht um, Copyright falsch ausgerichtet, Jahr 2023 | niedrig | behoben |
-| 10 | Shootings/Blog: Overflow auf Tablet, Titel brechen mitten im Wort, falsche Großschreibung | mittel | behoben |
-| 11 | Datenschutz auf Tablet/Handy herausgezoomt (nicht umbrechender Link) | mittel | behoben |
-| 12 | Englischer Cookie-Banner + „Manage consent“-Schwebebutton auf deutscher Seite, Google Analytics/Fonts | mittel | behoben (kein Banner mehr nötig) |
-| 13 | Konsolenfehler (CORS) und 34 CSS/JS-Dateien pro Seite | niedrig | behoben |
-| 14 | Riesige Originalbilder (bis 13.275 × 9.482 px, 10 MB) | mittel | behoben |
-| 15 | Tippfehler und Schreibweisen | niedrig | behoben |
-| 16 | Zu kleine Klick-/Tap-Ziele | niedrig | behoben |
-| 17 | Zu geringer Textkontrast (4,26:1) | niedrig | behoben |
-| 18 | Blogbeiträge ohne semantische Struktur (kein H1, Datum als Absatz) | niedrig | behoben |
+| 8 | Footer-Layout: Fußnavigation bricht um, Copyright falsch ausgerichtet, Jahr 2023 | niedrig | behoben |
+| 9 | Shootings/Blog: Overflow auf Tablet, Titel brechen mitten im Wort, falsche Großschreibung | mittel | behoben |
+| 10 | Datenschutz auf Tablet/Handy herausgezoomt (nicht umbrechender Link) | mittel | behoben |
+| 11 | Englischer Cookie-Banner + „Manage consent“-Schwebebutton auf deutscher Seite, Google Analytics/Fonts | mittel | behoben (kein Banner mehr nötig) |
+| 12 | Konsolenfehler (CORS) und 34 CSS/JS-Dateien pro Seite | niedrig | behoben |
+| 13 | Riesige Originalbilder (bis 13.275 × 9.482 px, 10 MB) | mittel | behoben |
+| 14 | Tippfehler und Schreibweisen | niedrig | behoben |
+| 15 | Zu kleine Klick-/Tap-Ziele | niedrig | behoben |
+| 16 | Zu geringer Textkontrast (4,26:1) | niedrig | behoben |
+| 17 | Blogbeiträge ohne semantische Struktur (kein H1, Datum als Absatz) | niedrig | behoben |
 
 ## Messwerte vorher / nachher
 
@@ -178,22 +177,7 @@ strukturierten Daten; Google Fonts von Google-Servern (DSGVO-Risiko); 3 Google-F
 `OfferCatalog`). `<html lang="de-AT">`, genau eine H1 je Seite, beschreibende Alt-Texte für alle 278
 Bilder, selbst gehostete Fonts, `sitemap.xml`, `robots.txt`, `llms.txt`. Lighthouse SEO: 100.
 
-## 8. Leere Flächen vor dem Footer
-
-**Befund.** Elementor-Sections mit Mindesthöhe erzeugen vor dem Footer große graue Leerflächen:
-Startseite ca. 650 px, Über mich ca. 900 px, Shootings ca. 1.100 px.
-
-| vorher (Shootings) | vorher (Über mich) |
-|---|---|
-| ![](screenshots/before/shootings-desktop-empty-space.png) | ![](screenshots/before/ueber-mich-desktop-empty-space.png) |
-
-**Behebung.** Inhalt fließt natürlich, keine festen Mindesthöhen.
-
-| nachher (Shootings) | nachher (Über mich) |
-|---|---|
-| ![](screenshots/after/shootings-desktop.png) | ![](screenshots/after/ueber-mich-desktop.png) |
-
-## 9. Footer-Layout
+## 8. Footer-Layout
 
 **Befund.** Die Fußnavigation bricht um („Cookie Policy (EU)“ allein in der zweiten Zeile), das
 Copyright steht versetzt links unten, das Jahr ist fest auf 2023 gesetzt.
@@ -204,7 +188,7 @@ Copyright steht versetzt links unten, das Jahr ist fest auf 2023 gesetzt.
 
 **Behebung.** Flex-Layout mit sauberem Umbruch, Jahr wird automatisch gesetzt, Links mit 44 px Höhe.
 
-## 10. Shootings/Blog: Overflow und Kartentitel
+## 9. Shootings/Blog: Overflow und Kartentitel
 
 **Befund.** Auf dem Tablet (820 px) ist das Kartenraster 842 px breit (Scrollbalken). Die Titel mit
 großem Buchstabenabstand brechen mitten im Wort um („Unvergesslich e Baby Fotos“), und
@@ -217,7 +201,7 @@ großem Buchstabenabstand brechen mitten im Wort um („Unvergesslich e Baby Fot
 **Behebung.** Responsives Raster (3 / 2 / 1 Spalten), Titel in Originalschreibweise, moderater
 Buchstabenabstand, Karten sind ganzflächig verlinkt.
 
-## 11. Datenschutzerklärung herausgezoomt
+## 10. Datenschutzerklärung herausgezoomt
 
 **Befund.** Ein langer, nicht umbrechender Link des AdSimple-Generators weitet das Layout auf 975 px
 (Tablet) bzw. 839 px (Handy); die ganze Seite wird verkleinert dargestellt.
@@ -229,7 +213,7 @@ Buchstabenabstand, Karten sind ganzflächig verlinkt.
 **Behebung.** `overflow-wrap: anywhere` für Links und Tabellenzellen in Fließtexten, Inhaltsverzeichnis
 mit funktionierenden Ankern.
 
-## 12. Cookie-Banner und Tracker
+## 11. Cookie-Banner und Tracker
 
 **Befund.** Complianz zeigt einen englischen Banner („To provide the best experiences, we use
 technologies like cookies…“) und einen dauerhaften „Manage consent“-Schwebebutton; Google Analytics
@@ -241,7 +225,7 @@ technologies like cookies…“) und einen dauerhaften „Manage consent“-Schw
 Consent-Banner ist damit nicht nötig. Die übernommene Datenschutzerklärung/Cookie-Policy beschreibt
 noch den alten Stand und sollte aktualisiert werden (siehe README, Abschnitt „Rechtliches“).
 
-## 13. Konsolenfehler und Ladeverhalten
+## 12. Konsolenfehler und Ladeverhalten
 
 **Befund.** 6 Konsolenfehler je Seite (CORS der Hebrew-Fonts), 18 CSS- und 16 JS-Dateien (jQuery,
 jQuery Migrate, Swiper, Elementor, Elementor Pro, Complianz, gtag).
@@ -249,7 +233,7 @@ jQuery Migrate, Swiper, Elementor, Elementor Pro, Complianz, gtag).
 **Behebung.** 0 Konsolenfehler, 1 externe CSS-Datei (6 KB) plus inline-kritisches CSS, rund 99 KB
 JavaScript (komprimiert) für die gesamte Seite, Inhalte je Seite als eigener Chunk.
 
-## 14. Riesige Originalbilder
+## 13. Riesige Originalbilder
 
 **Befund.** Im Karussell der Startseite liegt `Oldtimer-_-Egranita-Doci-2.jpg` mit
 13.275 × 9.482 px (2,7 MB), im Beitrag „Unsere Liebe in Bildern“ `IMG_4449.jpg` mit 5.774 × 3.849 px
@@ -259,21 +243,21 @@ JavaScript (komprimiert) für die gesamte Seite, Inhalte je Seite als eigener Ch
 `srcset`/`sizes`, `width`/`height` gegen Layout-Springen, Lazy Loading außerhalb des sichtbaren
 Bereichs, Hero-Bild mit hoher Priorität. Startseite mobil auf GitHub Pages: rund 0,5 MB.
 
-## 15. Tippfehler und Schreibweisen
+## 14. Tippfehler und Schreibweisen
 
 - „Eurer Abenteuer fängt an“ → „Euer Abenteuer fängt an“
 - „Schwangerschaft / NeWBORN“, „Hinter den kulissen“ → korrekte Schreibweise
 - Footer „Ueber mich“ → „Über mich“
 - Flip-Box „Mein Homestudio“ verlinkte auf `http://www.egranitadoci.com/…` (http + www, Umleitung)
 
-## 16. Zu kleine Klick-/Tap-Ziele
+## 15. Zu kleine Klick-/Tap-Ziele
 
 **Befund.** 4–6 Bedienelemente je Seite unter 24 px (Social-Icons, Karussell-Punkte), auf Datenschutz
 und Cookie-Policy über 40.
 
 **Behebung.** Navigation, Buttons, Social-Icons, Karussell- und Lightbox-Bedienung mindestens 44 px.
 
-## 17. Textkontrast
+## 16. Textkontrast
 
 **Befund.** Fließtext `#747C7D` auf Weiß ergibt 4,26:1 (WCAG AA verlangt 4,5:1), Lighthouse meldet
 den Kontrast auf jeder Seite.
@@ -281,7 +265,7 @@ den Kontrast auf jeder Seite.
 **Behebung.** Textfarbe `#626A6B` (≥ 5,5:1 auf Weiß, ≥ 4,6:1 auf dem grauen Hintergrund); optisch
 nahezu identisch.
 
-## 18. Blogbeiträge ohne Struktur
+## 17. Blogbeiträge ohne Struktur
 
 **Befund.** Titel als H2 unter dem Bild, Datum als normaler Absatz, keine Artikel-Metadaten.
 
@@ -313,6 +297,12 @@ behoben, 1 wurde verworfen:
 | Performance | Galerie-Bilder im sichtbaren Bereich lazy; Fonts erst nach dem CSS entdeckt; zweites Hero-Bild konkurrierte mit dem LCP-Bild; `sizes` zu groß auf breiten Monitoren | erste Galeriebilder priorisiert, Font-Preload mit stabilen Dateinamen, verzögertes Nachladen, gedeckelte `sizes` |
 
 Verworfen: „`@angular/forms` im Hauptbundle für das Footer-Formular“ – messbar unerheblich (ca. 18 KB komprimiert).
+
+Korrigiert nach einer dritten Prüfrunde (Gegenprüfung des Kundenberichts): Der frühere Befund „große graue
+Leerflächen vor dem Footer“ war ein Artefakt der automatischen Ganzseiten-Aufnahme. Elementor blendet den
+Kontaktbereich (und auf „Über mich“ die Kundenstimmen) erst beim Hinscrollen ein (`elementor-invisible` +
+fadeIn); beim schnellen Durchscrollen des Prüfskripts blieb er unsichtbar. Der Befund wurde entfernt, die
+alte Fußzeile für Abschnitt 8 mit eingeblendeten Elementen neu aufgenommen.
 
 Adresse: Auf der alten Seite standen zwei verschiedene Adressen (Kontakt: Innsbruck, Impressum: Hall in
 Tirol). Freigabe 22.10.2026: Hall in Tirol – jetzt einheitlich auf der Kontaktseite, in den strukturierten
