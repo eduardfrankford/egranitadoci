@@ -148,12 +148,29 @@
   transform: scale(1.3);
 }
 
+.counter {
+  display: none;
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  z-index: 2;
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+/* Auf Handys: Zähler statt 14 Punkten (Punkte wären < 24 px Zielgröße oder würden umbrechen) */
 @media (max-width: 539px) {
   .dots {
-    left: 0;
-    right: 0;
-    gap: 0;
-    padding: 0 8px;
+    display: none;
+  }
+
+  .counter {
+    display: block;
   }
 
   .play-toggle {

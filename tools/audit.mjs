@@ -42,6 +42,8 @@ const routes = [
   '/cookie-policy-eu/',
   '/404/',
 ];
+const only = process.argv[4] ? process.argv[4].split(',') : null;
+const selectedRoutes = only ? routes.filter((r) => only.includes(r)) : routes;
 const viewports = {
   desktop: { width: 1440, height: 900 },
   tablet: { width: 820, height: 1180 },
@@ -59,7 +61,7 @@ for (const [vpName, vp] of Object.entries(viewports)) {
     isMobile: vpName === 'mobile',
     hasTouch: vpName !== 'desktop',
   });
-  for (const route of routes) {
+  for (const route of selectedRoutes) {
     const name = route === '/' ? 'home' : route.replace(/^\/|\/$/g, '');
     const page = await ctx.newPage();
     const consoleErrors = [];
@@ -85,18 +87,21 @@ for (const [vpName, vp] of Object.entries(viewports)) {
       window.scrollTo(0, 0);
     });
     // Lazy-Bilder fertig laden lassen, bevor der Screenshot entsteht
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});
     await page.evaluate(() =>
-      Promise.all(
-        [...document.images]
-          .filter((i) => !i.complete)
-          .map(
-            (i) =>
-              new Promise((r) => {
-                i.onload = i.onerror = r;
-              }),
-          ),
-      ),
+      Promise.race([
+        Promise.all(
+          [...document.images]
+            .filter((i) => !i.complete)
+            .map(
+              (i) =>
+                new Promise((r) => {
+                  i.onload = i.onerror = r;
+                }),
+            ),
+        ),
+        new Promise((r) => setTimeout(r, 5000)), // nie länger als 5 s auf Lazy-Bilder warten
+      ]),
     );
     await page.waitForTimeout(300);
     const m = await page.evaluate((vpw) => {

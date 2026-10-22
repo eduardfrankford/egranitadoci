@@ -73,6 +73,7 @@
         </svg>
       </button>
     }
+    <p class="counter" aria-hidden="true">{{ index() + 1 }} / {{ count() }}</p>
     <div class="dots" role="tablist" aria-label="Bild auswählen">
       @for (s of slides(); track s.key; let i = $index) {
         <button

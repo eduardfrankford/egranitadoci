@@ -32,25 +32,26 @@ alle Nachher-Bilder in [screenshots/after](screenshots/after).
 
 ## Messwerte vorher / nachher
 
-Lighthouse, mobil, simulierte Drosselung (Standard). Nachher = lokaler Build; auf GitHub Pages kommt
-noch Netzwerk-Latenz hinzu.
+Lighthouse 12, mobil (Moto-G-Emulation). „Vorher“ = Live-Seite egranitadoci.com, „nachher“ = finaler Build
+der neuen Seite, lokal ausgeliefert (auf GitHub Pages kommt noch Netzwerk-Latenz hinzu). Die drei
+Qualitätskategorien sind unabhängig von der Netzdrosselung; die Performance-Werte wurden mit tatsächlich
+gedrosselter Verbindung (`--throttling-method=devtools`) gemessen.
 
-| Seite | Performance | Accessibility | Best Practices | SEO | Gesamtgröße |
-|---|---|---|---|---|---|
-| Startseite vorher | 76 | 92 | 100 | 92 | 2.075 KB |
-| Startseite nachher | 71 \* | 97 | 100 | 100 | 823 KB |
-| Hochzeit vorher | 76 | 93 | 100 | 85 | 721 KB |
-| Hochzeit nachher | 69 \* | 96 | 100 | 100 | 1.347 KB (79 Galeriebilder) |
-
-\* Die simulierte Performance-Zahl des Neubaus ist ein Mess-Artefakt des lokalen Servers: Lighthouse
-sieht, dass die erste Darstellung zeitlich *nach* dem (nicht blockierenden) Laden des JavaScript lag,
-und rechnet das Bundle deshalb in den First Contentful Paint ein. Mit tatsächlich gedrosselter
-Verbindung (`--throttling-method=devtools`) ergibt sich für die Startseite:
-
-| Messung (devtools-Drosselung, mobil) | FCP | LCP | Speed Index | Performance |
+| Seite | Performance | Accessibility | Best Practices | SEO |
 |---|---|---|---|---|
-| vorher | 3,3 s | 6,3 s | 4,8 s | 69 |
-| nachher | 0,7 s | 2,8 s | 5,3 s | 91 |
+| Startseite vorher | 69 | 92 | 100 | 92 |
+| Startseite nachher | 88–93 \* | 100 | 100 | 100 |
+| Hochzeit vorher | 76 (simuliert) | 93 | 100 | 85 |
+| Hochzeit nachher | 100 | 100 | 100 | 100 |
+
+| Startseite (devtools-Drosselung, mobil) | FCP | LCP | Speed Index | Gesamtgröße |
+|---|---|---|---|---|
+| vorher | 3,3 s | 6,3 s | 4,8 s | 2.075 KB |
+| nachher | 0,9 s | 2,6 s | 5,3 s \* | 876 KB |
+
+\* Der Speed Index der neuen Startseite bleibt wegen des laufenden Bild-Karussells (fortlaufende
+Überblendung) höher als bei einer statischen Seite; das drückt den Performance-Wert auf 88–93 trotz
+FCP 0,9 s und LCP 2,6 s. Für eine 100 könnte das Karussell auf Mobilgeräten ohne Autoplay starten.
 
 Playwright-Audit (25 Seiten × 3 Viewports):
 
