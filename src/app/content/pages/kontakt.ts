@@ -5,7 +5,7 @@ export const page: PageDef = {
   kind: 'contact',
   title: 'Kontakt – Fotoshooting in Innsbruck & Tirol anfragen',
   description:
-    'Fotoshooting in Innsbruck, Tirol oder darüber hinaus anfragen: Kontaktformular, Telefon +43 664 9509546 und E-Mail egranita.doci@gmail.com. Ich freue mich auf eure Nachricht.',
+    'Fotoshooting in Innsbruck, Tirol oder darüber hinaus anfragen: Kontaktformular, Telefon +43 664 9509546 oder E-Mail egranita.doci@gmail.com.',
   h1: 'Ich freu mich, von dir zu hören.',
   blocks: [
     {

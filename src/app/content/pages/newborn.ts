@@ -5,7 +5,7 @@ export const page: PageDef = {
   kind: 'service',
   title: 'Newborn Fotoshooting Innsbruck & Tirol',
   description:
-    'Neugeborenen-Fotoshooting in Innsbruck und Hall in Tirol – im Homestudio oder bei euch zuhause. Zarte, natürliche Babyfotos in den ersten Lebenstagen. Galerie und FAQ.',
+    'Neugeborenen-Fotoshooting in Innsbruck und Hall in Tirol – im Homestudio oder bei euch zuhause. Zarte, natürliche Babyfotos der ersten Lebenstage. FAQ.',
   h1: 'Newborn',
   ogImage: 'egranita-doci-familienfotografin-innsbruck-tirol-newborn-neugeboren-1',
   blocks: [

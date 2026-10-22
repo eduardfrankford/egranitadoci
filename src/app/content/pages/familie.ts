@@ -5,7 +5,7 @@ export const page: PageDef = {
   kind: 'service',
   title: 'Familienfotografin Innsbruck – Familienshooting in Tirol',
   description:
-    'Familienfotos in Innsbruck und Tirol – ungezwungen, echt und mit viel Spaß. Familienshooting im Freien, zuhause oder auf Familienfeiern. Galerie und FAQ.',
+    'Familienfotos in Innsbruck und Tirol – ungezwungen, echt und mit viel Spaß. Familienshooting im Freien, zuhause oder auf Familienfeiern.',
   h1: 'Familie',
   ogImage: 'egranita-doci-familienfotografin-innsbruck-tirol-newborn-neugeboren-11-1',
   blocks: [

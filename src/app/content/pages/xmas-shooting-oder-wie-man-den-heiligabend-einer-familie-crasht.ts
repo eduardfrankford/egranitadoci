@@ -5,7 +5,7 @@ export const page: PageDef = {
   kind: 'post',
   title: 'Xmas Shooting oder wie man den Heiligabend einer Familie crasht',
   description:
-    'Weihnachtsshooting bereits in November für die Grußkarten ist passé, diese Familie ist next level und so fuhr ich am Morgen vom Heiligabend nach Kufstein …',
+    'Weihnachtsshooting bereits in November für die Grußkarten ist passé, diese Familie ist next level und so fuhr ich am Morgen vom Heiligabend nach …',
   h1: 'Xmas Shooting oder wie man den Heiligabend einer Familie crasht',
   ogImage: 'img-0909-2-1140x1710-1-1',
   datePublished: '2023-03-03',

@@ -5,7 +5,7 @@ export const page: PageDef = {
   kind: 'legal',
   title: 'Datenschutzerklärung',
   description:
-    'Datenschutzerklärung von Egranita Doci Storytelling Photography: welche Daten verarbeitet werden, Rechtsgrundlagen, Speicherdauer und Ihre Rechte laut DSGVO.',
+    'Datenschutzerklärung von Egranita Doci Storytelling Photography: verarbeitete Daten, Rechtsgrundlagen, Speicherdauer und Ihre Rechte laut DSGVO.',
   h1: 'Datenschutzerklärung',
   blocks: [
     {

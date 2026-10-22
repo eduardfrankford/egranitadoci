@@ -5,7 +5,7 @@ export const page: PageDef = {
   kind: 'about',
   title: 'Über mich – Egranita Doci, Familienfotografin in Innsbruck',
   description:
-    'Ich bin Egranita, Familien- und Hochzeitsfotografin aus Innsbruck. Seit 2010 hinter der Kamera, seit 2022 mit Egranita Doci Storytelling Photography. Lerne mich und meine Arbeitsweise kennen.',
+    'Ich bin Egranita, Familien- und Hochzeitsfotografin aus Innsbruck. Seit 2010 hinter der Kamera, seit 2022 mit Egranita Doci Storytelling Photography.',
   h1: 'Über mich',
   ogImage: 'egranita-doci-familienfotografin-innsbruck-tirol-2',
   blocks: [

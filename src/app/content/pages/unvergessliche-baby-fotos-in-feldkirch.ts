@@ -5,7 +5,7 @@ export const page: PageDef = {
   kind: 'post',
   title: 'Unvergessliche Baby Fotos in Feldkirch',
   description:
-    'Der Zauber des Neugeborenen-Shootings endet nicht mit dem 14ten Lebenstag und deswegen machte ich mich auf dem Weg ins schöne Vorarlberg, um dort in den …',
+    'Der Zauber des Neugeborenen-Shootings endet nicht mit dem 14ten Lebenstag und deswegen machte ich mich auf dem Weg ins schöne Vorarlberg, um dort in …',
   h1: 'Unvergessliche Baby Fotos in Feldkirch',
   ogImage: 'egranita-doci-familienfotografin-innsbruck-tirol-newborn-neugeboren-11-1',
   datePublished: '2023-03-22',

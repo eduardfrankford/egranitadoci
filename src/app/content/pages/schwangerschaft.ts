@@ -5,7 +5,7 @@ export const page: PageDef = {
   kind: 'service',
   title: 'Babybauch Fotoshooting Innsbruck – Schwangerschaftsfotos',
   description:
-    'Schwangerschafts-Fotoshooting in Innsbruck und Tirol: natürliche Babybauchfotos im Freien oder im Homestudio, gern mit Partner und Geschwistern. Galerie und FAQ.',
+    'Schwangerschafts-Fotoshooting in Innsbruck und Tirol: natürliche Babybauchfotos im Freien oder im Homestudio, gern mit Partner und Geschwistern.',
   h1: 'Schwangerschaft',
   ogImage: 'egranita-doci-familienfotografin-innsbruck-tirol-babybauch-schwangerschaft-2',
   blocks: [

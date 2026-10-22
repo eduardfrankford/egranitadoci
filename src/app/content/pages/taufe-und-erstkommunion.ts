@@ -5,7 +5,7 @@ export const page: PageDef = {
   kind: 'service',
   title: 'Taufe & Erstkommunion – Fotografin in Tirol',
   description:
-    'Fotografische Begleitung von Taufe und Erstkommunion in Innsbruck und Tirol – Zeremonie, Familie und Feier in natürlichen Bildern. Galerie, Ablauf und FAQ.',
+    'Fotografische Begleitung von Taufe und Erstkommunion in Innsbruck und Tirol – Zeremonie, Familie und Feier in natürlichen Bildern. Galerie und FAQ.',
   h1: 'Taufe und Erstkommunion',
   ogImage: 'egranita-doci-familienfotografin-innsbruck-tirol-taufe-9',
   blocks: [

@@ -5,7 +5,7 @@ export const page: PageDef = {
   kind: 'service',
   title: 'Kindergartenfotografin Tirol – KITA- & Kindergartenfotografie',
   description:
-    'Mobile Kindergarten- und KITA-Fotografie in Innsbruck und Tirol: stressfrei, kindgerecht und ohne Kosten am Shootingtag. Alle Infos für Einrichtungen und Eltern.',
+    'Mobile Kindergarten- und KITA-Fotografie in Innsbruck und Tirol: stressfrei, kindgerecht und ohne Kosten am Shootingtag. Infos für Einrichtungen und Eltern.',
   h1: 'KITA und Kindergarten',
   ogImage: 'egranita-doci-familienfotografin-innsbruck-tirol-kinder-geburtstag',
   blocks: [

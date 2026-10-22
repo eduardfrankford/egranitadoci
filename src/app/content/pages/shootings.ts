@@ -5,7 +5,7 @@ export const page: PageDef = {
   kind: 'blog',
   title: 'Shootings & Blog – Einblicke in meine Fotoshootings',
   description:
-    'Geschichten hinter den Kulissen: Hochzeit in Hall in Tirol, Newborn-Shootings, Homestudio, Magnolien-Shooting in Wien, Herbst-Minishootings im Botanischen Garten Innsbruck und mehr.',
+    'Geschichten hinter den Kulissen: Hochzeit in Hall in Tirol, Newborn-Shootings im Homestudio, Magnolien-Shooting in Wien, Minishootings in Innsbruck.',
   h1: 'Shootings',
   ogImage: 'brautpaar-hall-in-tirol-altstadt-1',
   blocks: [

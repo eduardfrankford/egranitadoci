@@ -5,7 +5,7 @@ export const page: PageDef = {
   kind: 'post',
   title: 'Unsere Liebe in Bildern: Ein Neugeborenen-Fotoshooting in Hall in Tirol',
   description:
-    'In meinem Homestudio durfte ich diese bezaubernde Familie und ihr neugeborenes Mädchen willkommen heißen, um gemeinsam unvergessliche Momente fotografisch …',
+    'In meinem Homestudio durfte ich diese bezaubernde Familie und ihr neugeborenes Mädchen willkommen heißen, um gemeinsam unvergessliche Momente …',
   h1: 'Unsere Liebe in Bildern: Ein Neugeborenen-Fotoshooting in Hall in Tirol',
   ogImage: 'img-4467-bearbeitet',
   datePublished: '2023-08-14',

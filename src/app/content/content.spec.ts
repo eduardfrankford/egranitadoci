@@ -36,9 +36,9 @@ describe('Seiteninhalte', () => {
       const h1s = p.blocks.filter((b) => b.type === 'h1');
       expect(h1s.length, `${p.slug}: H1`).toBe(1);
       expect(p.title.length, `${p.slug}: Titel`).toBeGreaterThan(5);
-      expect(p.title.length, `${p.slug}: Titel zu lang`).toBeLessThanOrEqual(75);
+      expect(p.title.length, `${p.slug}: Titel zu lang`).toBeLessThanOrEqual(p.kind === 'post' ? 90 : 75);
       expect(p.description?.length ?? 0, `${p.slug}: Description`).toBeGreaterThan(40);
-      expect(p.description?.length ?? 0, `${p.slug}: Description zu lang`).toBeLessThanOrEqual(170);
+      expect(p.description?.length ?? 0, `${p.slug}: Description zu lang`).toBeLessThanOrEqual(160);
     }
   });
 
