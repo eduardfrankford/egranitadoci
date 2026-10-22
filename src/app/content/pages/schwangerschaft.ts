@@ -11,7 +11,7 @@ export const page: PageDef = {
   blocks: [
     {
       type: 'h1',
-      text: 'Schwangerschaft',
+      text: 'Schwanger\u00ADschaft',
     },
     {
       type: 'html',
