@@ -1,6 +1,6 @@
 # Fehlerbericht: alte Seite (WordPress/Elementor) und Behebung im Neubau
 
-Analyse vom 22.10.2026. Vorgehen: automatisierter Playwright-Durchlauf aller 25 Seiten der Live-Seite
+Analyse vom 22.10.2026. Vorgehen: automatisierter Playwright-Durchlauf aller 24 Seiten der Live-Seite
 in drei Viewports (1440 / 820 / 390 px) mit Messung von Overflow, Überschriften, Alt-Texten,
 Konsolenfehlern und fehlgeschlagenen Requests; Lighthouse (mobil); manuelle Sichtung. Die
 Vorher-Screenshots stammen von `https://egranitadoci.com`, die Nachher-Screenshots vom Build der
@@ -32,35 +32,36 @@ alle Nachher-Bilder in [screenshots/after](screenshots/after).
 
 ## Messwerte vorher / nachher
 
-Lighthouse 12, mobil (Moto-G-Emulation). „Vorher“ = Live-Seite egranitadoci.com, „nachher“ = finaler Build
-der neuen Seite, lokal ausgeliefert (auf GitHub Pages kommt noch Netzwerk-Latenz hinzu). Die drei
-Qualitätskategorien sind unabhängig von der Netzdrosselung; die Performance-Werte wurden mit tatsächlich
-gedrosselter Verbindung (`--throttling-method=devtools`) gemessen.
+Lighthouse 12, mobil (Moto-G-Emulation), echte Netzdrosselung (`--throttling-method=devtools`), jeweils
+Median aus drei Läufen am 22.10.2026. „Vorher“ = egranitadoci.com (WordPress), „nachher“ = neue
+Seite auf GitHub Pages (Vorschau). Der SEO-Wert „nachher“ stammt vom Produktions-Build (base href `/`), weil
+die Vorschau bewusst `noindex` ist (dort SEO 66). Rohdaten: Lighthouse-JSON je Lauf.
 
-| Seite | Performance | Accessibility | Best Practices | SEO |
+| Messwert (mobil) | Start vorher | Start nachher | Hochzeit vorher | Hochzeit nachher |
 |---|---|---|---|---|
-| Startseite vorher | 69 | 92 | 100 | 92 |
-| Startseite nachher | 88–93 \* | 100 | 100 | 100 |
-| Hochzeit vorher | 76 (simuliert) | 93 | 100 | 85 |
-| Hochzeit nachher | 100 | 100 | 100 | 100 |
+| First Contentful Paint | 2,4 s | 0,8 s | 2,1 s | 0,9 s |
+| Largest Contentful Paint | 5,4 s | 3,4 s | 3,9 s | 0,9 s |
+| Speed Index | 4,0 s | 5,1 s \* | 2,5 s | 1,6 s |
+| Übertragene Datenmenge | 5.201 KB | 549 KB | 721 KB | 878 KB \*\* |
+| Performance | 75 | 88 | 84 | 99 |
+| Accessibility | 92 | 100 | 93 | 100 |
+| Best Practices | 100 | 100 | 100 | 100 |
+| SEO | 92 | 100 | 85 | 100 |
 
-| Startseite (devtools-Drosselung, mobil) | FCP | LCP | Speed Index | Gesamtgröße |
-|---|---|---|---|---|
-| vorher | 3,3 s | 6,3 s | 4,8 s | 2.075 KB |
-| nachher | 0,9 s | 2,6 s | 5,3 s \* | 876 KB |
+\* Das laufende Karussell (Überblendung alle 5 s) hält den Speed Index der Startseite hoch und drückt den
+Performance-Wert unter 100. Ohne Autoplay auf Mobilgeräten wären höhere Werte möglich.
+\*\* Die neue Hochzeitsseite lädt die ersten Galeriebilder sofort (priorisiert), deshalb etwas mehr Daten; der
+Inhalt ist trotzdem rund viermal früher sichtbar. Die alte Startseite lädt u. a. ein 13.275 × 9.482 px großes
+Karussellbild (2,7 MB).
 
-\* Der Speed Index der neuen Startseite bleibt wegen des laufenden Bild-Karussells (fortlaufende
-Überblendung) höher als bei einer statischen Seite; das drückt den Performance-Wert auf 88–93 trotz
-FCP 0,9 s und LCP 2,6 s. Für eine 100 könnte das Karussell auf Mobilgeräten ohne Autoplay starten.
-
-Playwright-Audit (25 Seiten × 3 Viewports):
+Playwright-Audit (alte Seite: 24 Seiten, neue Seite: 25 inkl. Fehlerseite, jeweils × 3 Viewports):
 
 | Kriterium | vorher | nachher |
 |---|---|---|
 | Seiten mit horizontalem Overflow | 9 (Startseite in allen Viewports, Shootings + 3 Blogbeiträge Tablet, Datenschutz Tablet/Mobil) | 0 |
-| Seiten ohne H1 | 15 von 25 | 0 |
-| Seiten ohne Meta-Description | 25 von 25 | 0 |
-| Bilder ohne Alt-Text | alle (z. B. 11 auf der Startseite) | 0 |
+| Seiten ohne H1 | 13 von 24 | 0 |
+| Seiten ohne Meta-Description | 24 von 24 | 0 |
+| Bilder ohne Alt-Text | 41 von 48 `<img>`, 261 von 281 Galeriebildern ohne Beschreibung | 0 |
 | Konsolenfehler pro Seite (Desktop) | 6 | 0 |
 | `<html lang>` | `en-US` | `de-AT` |
 
@@ -137,12 +138,13 @@ bleibt als Download verlinkt.
 
 ## 5. Instagram-Verlinkung
 
-**Befund.** Alle 25 Seiten verlinken im Footer auf `https://www.instagram.com/egranita/`. Der Aufruf
+**Befund.** Alle 24 Seiten verlinken im Footer auf `https://www.instagram.com/egranita/`. Der Aufruf
 im Browser zeigt das richtige Profil („Egranita Doci | Fotografin | Tirol“, @egranita). Der Link
 selbst ist also nicht defekt. Was auffiel: Die Social-Icons sind nur 32 px groß und werden auf dem
 Handy vom „Manage consent“-Button bzw. vom Cookie-Banner überlagert, sodass Taps ins Leere gehen
-können. Außerdem zeigt der Pinterest-Link auf ein privates Profil („just a random business and
-economics student“).
+können. Außerdem führt der Pinterest-Link zu Egranitas eigenem Profil (es verlinkt auf egranitadoci.com),
+das aber eher private Pinnwände und eine ältere Beschreibung zeigt („just a random business and
+economics student …“).
 
 **Behebung.** Social-Links mit 44 × 44 px Klickfläche, `target="_blank"`, `rel="noopener"` und
 `aria-label`; keine überlagernden Elemente mehr. **Offen:** mit Egranita klären, was genau an der
@@ -163,9 +165,10 @@ der Button eine vorbereitete E-Mail.
 
 ## 7. SEO-Mängel
 
-**Befund** (alle 25 Seiten): keine Meta-Description; `<html lang="en-US">` auf einer deutschen Seite;
-keine H1 auf Startseite, Leistungen, Shootings, Impressum und allen 9 Blogbeiträgen; sämtliche Bilder
-ohne Alt-Text; keine Open-Graph-/Twitter-Tags (Links in WhatsApp/Facebook ohne Vorschau); keine
+**Befund** (alle 24 Seiten): keine Meta-Description; `<html lang="en-US">` auf einer deutschen Seite;
+keine H1 auf 13 von 24 Seiten (Startseite, Leistungen, Shootings, Impressum und alle 9 Blogbeiträge); fast
+kein Bild mit Alt-Text bzw. Beschreibung; alte WordPress-Benutzerkonten öffentlich über Autorenseiten und
+`/wp-json/wp/v2/users` abrufbar; keine Open-Graph-/Twitter-Tags (Links in WhatsApp/Facebook ohne Vorschau); keine
 strukturierten Daten; Google Fonts von Google-Servern (DSGVO-Risiko); 3 Google-Fonts-Varianten
 „Open Sans Hebrew“ geladen, die mit CORS-Fehler scheitern. Lighthouse SEO: 92 (Start) / 85 (Hochzeit).
 
@@ -250,11 +253,11 @@ JavaScript (komprimiert) für die gesamte Seite, Inhalte je Seite als eigener Ch
 
 **Befund.** Im Karussell der Startseite liegt `Oldtimer-_-Egranita-Doci-2.jpg` mit
 13.275 × 9.482 px (2,7 MB), im Beitrag „Unsere Liebe in Bildern“ `IMG_4449.jpg` mit 5.774 × 3.849 px
-(10,3 MB). Die Startseite wiegt mobil 2,1 MB.
+(10,3 MB). Die Startseite überträgt mobil rund 5,1 MB (Lighthouse, echte Drosselung).
 
 **Behebung.** Alle 278 Bilder als WebP in bis zu vier Breiten (480/960/1440/1920 px) mit
 `srcset`/`sizes`, `width`/`height` gegen Layout-Springen, Lazy Loading außerhalb des sichtbaren
-Bereichs, Hero-Bild mit hoher Priorität. Startseite mobil: 823 KB.
+Bereichs, Hero-Bild mit hoher Priorität. Startseite mobil auf GitHub Pages: rund 0,5 MB.
 
 ## 15. Tippfehler und Schreibweisen
 
