@@ -13,16 +13,8 @@ export const SITE = {
   email: 'egranita.doci@gmail.com',
   phoneDisplay: '+43 664 9509546',
   phoneE164: '+436649509546',
-  /** Adresse laut Kontaktseite. */
+  /** Geschäftsadresse (Kontaktseite, strukturierte Daten) – Freigabe 22.10.2026: Hall in Tirol wie im Impressum. */
   address: {
-    street: 'Peerhofstrasse 15/45',
-    zip: '6020',
-    city: 'Innsbruck',
-    region: 'Tirol',
-    country: 'AT',
-  },
-  /** Firmensitz laut Impressum. */
-  legalAddress: {
     street: 'Faistenbergerstrasse 11',
     zip: '6060',
     city: 'Hall in Tirol',
@@ -37,10 +29,13 @@ export const SITE = {
     pinterest: 'https://at.pinterest.com/egranita/',
   },
   /**
-   * Endpunkt für das Kontaktformular (z. B. Formspree: 'https://formspree.io/f/abcdefgh').
+   * Endpunkt des Kontaktformulars: URL der Google-Apps-Script-Web-App (…/exec) aus tools/apps-script/Code.gs,
+   * bereitgestellt im Google-Workspace-Konto von frankford-it (Anleitung im README).
    * Leer lassen = Fallback auf eine vorbereitete E-Mail (mailto:) im Mailprogramm des Besuchers.
    */
   contactFormEndpoint: '',
+  /** Gemeinsamer Schlüssel, den das Script prüft (CONFIG.siteKey) – hält simple Bots vom direkten Posten ab. */
+  contactFormSiteKey: 'egranitadoci-2026',
   /** Mindestzeit (ms) zwischen Öffnen der Seite und Absenden – Bots füllen Formulare in Millisekunden aus. */
   contactFormMinFillTime: 3000,
 } as const;

@@ -74,9 +74,9 @@ export function person(): object {
     worksFor: { '@id': BUSINESS_ID },
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Innsbruck',
-      addressRegion: 'Tirol',
-      addressCountry: 'AT',
+      addressLocality: SITE.address.city,
+      addressRegion: SITE.address.region,
+      addressCountry: SITE.address.country,
     },
     sameAs: Object.values(SITE.social),
   };

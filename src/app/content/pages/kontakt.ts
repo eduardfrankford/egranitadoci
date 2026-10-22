@@ -22,7 +22,7 @@ export const page: PageDef = {
     {
       type: 'contact-info',
       items: [
-        'ADDRESSE: Peerhofstrasse 15/45, 6020 Innsbruck',
+        'ADDRESSE: Faistenbergerstrasse 11, 6060 Hall in Tirol',
         'TEL: +436649509546',
         'EMAIL: egranita.doci@gmail.com',
       ],

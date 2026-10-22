@@ -157,7 +157,8 @@ wurde zugespamt.
 **Behebung.** `layout/footer/contact-form`: unsichtbares Honeypot-Feld (Bots füllen es aus, Eingabe
 wird still verworfen), Absenden erst nach 3 Sekunden möglich, Pflicht-Checkbox Datenschutz,
 Validierung von Name/E-Mail/Telefon. Da GitHub Pages keine Mails versendet, geht der Versand über einen
-Formular-Dienst mit eigenem Spamfilter (Formspree, siehe README). Ohne eingetragenen Endpunkt öffnet
+Google-Apps-Script-Web-App im Google-Workspace-Konto von frankford-it (serverseitig Honeypot, Pflichtfelder,
+Link-Spam und Stundenlimit; Anleitung im README). Ohne eingetragenen Endpunkt öffnet
 der Button eine vorbereitete E-Mail.
 
 ## 7. SEO-Mängel
@@ -310,17 +311,17 @@ behoben, 1 wurde verworfen:
 
 Verworfen: „`@angular/forms` im Hauptbundle für das Footer-Formular“ – messbar unerheblich (ca. 18 KB komprimiert).
 
-Nicht geändert, aber zur Klärung mit der Kundin notiert: zwei unterschiedliche Adressen (Kontakt: Innsbruck,
-Impressum: Hall in Tirol); alte Bild-URLs unter `/wp-content/uploads/` liefern nach dem Umzug 404
-(GitHub Pages kann nicht umleiten – Google indexiert die neuen WebP-Bilder neu).
+Adresse: Auf der alten Seite standen zwei verschiedene Adressen (Kontakt: Innsbruck, Impressum: Hall in
+Tirol). Freigabe 22.10.2026: Hall in Tirol – jetzt einheitlich auf der Kontaktseite, in den strukturierten
+Daten und in `llms.txt`. Alte Bild-URLs unter `/wp-content/uploads/` liefern nach dem Umzug 404 (GitHub Pages
+kann nicht umleiten – Google indexiert die neuen WebP-Bilder neu).
 
 ---
 
 ## Offene Punkte für die Übergabe
 
-1. Formular-Endpunkt (Formspree) in `src/app/core/site.ts` eintragen, sonst öffnet „Absenden“ nur das Mailprogramm.
+1. Formular-Backend bereitstellen (Google-Apps-Script-Web-App im frankford-it-Workspace, Anleitung im README) und die URL in `src/app/core/site.ts` eintragen; bis dahin öffnet „Absenden“ nur das Mailprogramm.
 2. Domain umstellen: Repository-Variable `CUSTOM_DOMAIN`, DNS beim Provider, „Enforce HTTPS“ (Anleitung im README).
 3. Datenschutzerklärung und Cookie-Policy an den neuen Stand anpassen (keine Cookies/Tracker/WordPress).
 4. Instagram: Rückfrage beim Kunden, was genau nicht funktionierte; Pinterest-Link prüfen.
-6. Adresse vereinheitlichen (Kontakt/Schema: Innsbruck vs. Impressum: Hall in Tirol) – Angabe in `src/app/core/site.ts`.
 5. Nach dem Domainwechsel: Sitemap in der Google Search Console einreichen.

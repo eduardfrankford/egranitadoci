@@ -63,19 +63,31 @@ Galerie der Seite mit einem beschreibenden `alt`-Text eintragen. Vorhandene Vari
 Social-Media-Vorschaubilder (`public/og/<slug>.jpg`, 1200 × 630) werden nicht automatisch erzeugt – für
 neue Seiten einmalig mit `sharp` zuschneiden (Beispiel in `tools/images.mjs`-Stil) oder ein bestehendes verwenden.
 
-## Kontaktformular (Spam-Schutz)
+## Kontaktformular (Spam-Schutz, Versand über Google Workspace)
 
-Das Formular (`src/app/layout/footer/contact-form.ts`) schützt mit **Honeypot-Feld**, **Zeitsperre**
-(Absenden erst nach 3 s), Pflicht-Checkbox und Validierung. Da GitHub Pages keine Mails versenden kann,
-wird ein Formular-Dienst angebunden:
+Das Formular (`src/app/layout/footer/contact-form.ts`) schützt clientseitig mit **Honeypot-Feld**,
+**Zeitsperre** (Absenden erst nach 3 s), Pflicht-Checkbox und Validierung. Da GitHub Pages selbst keine
+Mails versenden kann, nimmt eine kleine **Google-Apps-Script-Web-App** im Google-Workspace-Konto von
+frankford-it die Anfragen entgegen und schickt sie per Mail weiter (`tools/apps-script/Code.gs`). Sie prüft
+serverseitig noch einmal Honeypot, Pflichtfelder, Link-Spam und eine Obergrenze pro Stunde; Antwort-an ist
+die Adresse der anfragenden Person.
 
-1. Bei [Formspree](https://formspree.io) (kostenlos bis 50 Nachrichten/Monat) ein Formular anlegen,
-   Empfänger `egranita.doci@gmail.com`, Spamfilter ist dort standardmäßig aktiv.
-2. Die Formular-URL (`https://formspree.io/f/xxxxxxxx`) in `src/app/core/site.ts` bei
-   `contactFormEndpoint` eintragen, committen – fertig.
+Einrichtung (einmalig, ca. 5 Minuten, mit dem frankford-it-Google-Konto):
 
-Ohne eingetragenen Endpunkt öffnet der Button eine vorbereitete E-Mail im Mailprogramm des Besuchers
-(mailto-Fallback), die Seite ist also nie "kaputt".
+1. <https://script.google.com> öffnen → **Neues Projekt** → Inhalt von `tools/apps-script/Code.gs` einfügen,
+   Projekt z. B. „egranitadoci Kontaktformular“ nennen.
+2. In `CONFIG` Empfängerin prüfen (`egranita.doci@gmail.com`), optional `cc` (Kopie an frankford-it) und
+   `sheetId` (Google-Tabelle als Protokoll) setzen.
+3. **Bereitstellen → Neue Bereitstellung** → Typ **Web-App** → „Ausführen als: Ich“ →
+   „Zugriff: Jeder“ → Bereitstellen → Berechtigungen bestätigen → **Web-App-URL** (`…/exec`) kopieren.
+4. URL in `src/app/core/site.ts` bei `contactFormEndpoint` eintragen, committen → der Deploy läuft automatisch.
+5. Testen: Formular absenden; die Mail kommt vom ausführenden Workspace-Konto mit Antwort-an = Absender:in.
+
+Hinweise: Nach Änderungen am Script immer eine neue Version bereitstellen. Absenderadresse ist das
+ausführende Konto (für einen eigenen Absender einen Alias einrichten und `GmailApp.sendEmail(..., { from })`
+verwenden). Quota: 1.500 Mails/Tag (Workspace). Der `siteKey` in `CONFIG` und `SITE.contactFormSiteKey`
+müssen übereinstimmen. Ohne eingetragenen Endpunkt öffnet der Button eine vorbereitete E-Mail im Mailprogramm
+des Besuchers (mailto-Fallback), die Seite ist also nie „kaputt“.
 
 ## Deployment & Domain
 

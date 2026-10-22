@@ -9,7 +9,8 @@ type FormState = 'idle' | 'sending' | 'sent' | 'mailto' | 'error';
  *  - Honeypot-Feld (_gotcha): für Menschen unsichtbar, Bots füllen es aus → wird still verworfen
  *  - Zeitsperre: Absenden erst nach SITE.contactFormMinFillTime möglich
  *  - Pflicht-Checkbox (Datenschutz) und Browser-/Angular-Validierung
- *  - Versand an einen Formular-Dienst (SITE.contactFormEndpoint, z. B. Formspree mit eigenem Spamfilter);
+ *  - Versand an die Google-Apps-Script-Web-App (SITE.contactFormEndpoint, läuft im Google-Workspace-Konto von
+ *    frankford-it und prüft serverseitig Honeypot, Pflichtfelder, Link-Spam und eine Stundenobergrenze);
  *    ohne Endpunkt öffnet sich eine vorbereitete E-Mail (mailto:).
  */
 @Component({
@@ -67,20 +68,26 @@ export class ContactForm {
     }
     this.state.set('sending');
     try {
+      const payload = {
+        key: SITE.contactFormSiteKey,
+        name: v.name,
+        email: v.email,
+        phone: v.phone,
+        message: v.message,
+        source: v.source,
+        page: window.location.pathname,
+        _gotcha: v._gotcha,
+      };
+      // Bewusst ohne Content-Type-Header (→ text/plain): Google-Apps-Script-Web-Apps beantworten keinen
+      // CORS-Preflight; als "einfache Anfrage" klappt der Versand direkt aus dem Browser.
       const res = await fetch(SITE.contactFormEndpoint, {
         method: 'POST',
-        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: v.name,
-          email: v.email,
-          phone: v.phone,
-          message: v.message,
-          source: v.source,
-          _subject: `Anfrage über egranitadoci.com von ${v.name}`,
-          _gotcha: v._gotcha,
-        }),
+        body: JSON.stringify(payload),
+        redirect: 'follow',
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const result = (await res.json()) as { ok?: boolean; error?: string };
+      if (!result.ok) throw new Error(result.error ?? 'unknown');
       this.state.set('sent');
       this.form.reset();
     } catch {
