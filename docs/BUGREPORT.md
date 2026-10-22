@@ -313,8 +313,8 @@ kann nicht umleiten – Google indexiert die neuen WebP-Bilder neu).
 
 ## Offene Punkte für die Übergabe
 
-1. Formular-Backend bereitstellen (Google-Apps-Script-Web-App im frankford-it-Workspace, Anleitung im README) und die URL in `src/app/core/site.ts` eintragen; bis dahin öffnet „Absenden“ nur das Mailprogramm.
-2. Domain umstellen: Repository-Variable `CUSTOM_DOMAIN`, DNS beim Provider, „Enforce HTTPS“ (Anleitung im README).
-3. Datenschutzerklärung und Cookie-Policy an den neuen Stand anpassen (keine Cookies/Tracker/WordPress).
-4. Instagram: Rückfrage beim Kunden, was genau nicht funktionierte; Pinterest-Link prüfen.
-5. Nach dem Domainwechsel: Sitemap in der Google Search Console einreichen.
+Die offenen Punkte werden als GitHub-Issues verfolgt. Das Sammel-Issue für die Umstellung ist
+[#14](https://github.com/eduardfrankford/egranitadoci/issues/14) „Umzug: egranitadoci.com auf die neue Seite umstellen“; es verlinkt alle Voraussetzungen und Folgeschritte.
+
+- **Vor dem Umzug:** [#5](https://github.com/eduardfrankford/egranitadoci/issues/5) Vorschau freigeben, [#6](https://github.com/eduardfrankford/egranitadoci/issues/6) Adresse bestätigen, [#1](https://github.com/eduardfrankford/egranitadoci/issues/1) Datenschutzerklärung und Cookie-Policy, [#2](https://github.com/eduardfrankford/egranitadoci/issues/2) AVV, [#3](https://github.com/eduardfrankford/egranitadoci/issues/3) Impressum, [#4](https://github.com/eduardfrankford/egranitadoci/issues/4) Kontaktformular, [#7](https://github.com/eduardfrankford/egranitadoci/issues/7) Besucherstatistik, [#9](https://github.com/eduardfrankford/egranitadoci/issues/9) KI-Training, [#10](https://github.com/eduardfrankford/egranitadoci/issues/10) Social-Media-Links
+- **Mit bzw. nach dem Umzug:** [#8](https://github.com/eduardfrankford/egranitadoci/issues/8) GitHub-Zugang, [#11](https://github.com/eduardfrankford/egranitadoci/issues/11) Search Console, [#12](https://github.com/eduardfrankford/egranitadoci/issues/12) Adresse in Profilen, [#13](https://github.com/eduardfrankford/egranitadoci/issues/13) Hosting kündigen
