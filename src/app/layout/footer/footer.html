@@ -1,0 +1,53 @@
+<footer class="site-footer">
+  <section class="contact" id="kontakt" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Kontaktiere mich</h2>
+    <p class="eyebrow">Euer Abenteuer fängt an</p>
+    <app-contact-form />
+  </section>
+
+  <section class="social" aria-labelledby="social-heading">
+    <h2 id="social-heading" class="social-heading">Folge mir auf Social Media</h2>
+    <ul class="social-links">
+      @for (s of social; track s.name) {
+        <li>
+          <a
+            [href]="s.href"
+            target="_blank"
+            rel="noopener"
+            [attr.aria-label]="s.name + ' (öffnet in neuem Tab)'"
+            [title]="s.name"
+          >
+            <svg
+              [attr.viewBox]="s.icon.viewBox"
+              width="22"
+              height="22"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path [attr.d]="s.icon.path" fill="currentColor" />
+            </svg>
+          </a>
+        </li>
+      }
+    </ul>
+    <hr class="divider" />
+  </section>
+
+  <div class="bottom">
+    <p class="copyright">© {{ year }} Egranita Doci</p>
+    <nav aria-label="Fußzeile">
+      <ul>
+        @for (item of nav; track item.path) {
+          <li>
+            <a
+              [routerLink]="item.path"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >{{ item.label }}</a
+            >
+          </li>
+        }
+      </ul>
+    </nav>
+  </div>
+</footer>

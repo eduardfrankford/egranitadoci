@@ -1,0 +1,92 @@
+<section class="page-box page-box--flush hero-box">
+  <app-hero-carousel [slides]="slides" />
+  <div class="intro">
+    <h1>Fotos, die Geschichten erzählen.</h1>
+    <div class="prose prose--center">
+      <p>Du wünschst dir Fotos mit echten Emotionen ohne posen zu müssen?</p>
+      <p>Du möchtest all deine Erinnerungen für immer festhalten?</p>
+      <p>
+        Von der Liebe zu deinem Partner, zu den Familienfeiern und Hochzeit, bis zur Geburt deines
+        Kindes und den alltäglichen Gemeinschaftsmomenten?
+      </p>
+      <p>
+        Ich bin dabei! Ich begleite dich und deine Familie mit meiner Kamera, bei allem was du
+        liebst und woran du dich später erinnern möchtest.
+      </p>
+    </div>
+    <p class="cta">
+      <a class="btn-text" appScrollTo="kontakt"
+        >Jetzt Shooting ausmachen <span class="arrow" aria-hidden="true">⟶</span></a
+      >
+    </p>
+  </div>
+</section>
+
+<section class="page-box about-teaser" aria-labelledby="about-title">
+  <div class="about-text">
+    <h2 id="about-title">Deine Fotografin für die besonderen Momente im Leben</h2>
+    <p class="eyebrow">Kreativ. Leidenschaftlich. Einfallsreich.</p>
+    <div class="prose">
+      <p>
+        Hallo, ich bin Egranita und meine Leidenschaft ist es mit meiner Fotografie deine Geschichte
+        zu erzählen. Mit viel Liebe zum Detail und einem Auge für das Besondere, halte ich
+        einzigartige Erinnerungen fest. Ob Hochzeit, Familienfeier oder Neugeborenenshooting – ich
+        verwandle deine wertvollen Familienmomente in zeitlose Erinnerungen.
+      </p>
+      <p>
+        Meine Fotos sollen eure Persönlichkeit widerspiegeln. Deshalb lege ich großen Wert darauf,
+        dass ihr euch während dem Shooting rundum wohl fühlt und Spaß habt.
+      </p>
+      <p>
+        Ich verstehe, dass Fotoshootings eine Investition sind und mein Versprechen ist, dass ihr
+        mit Bildern belohnt werdet, die den wahren Geist eurer Familie widerspiegeln. Lasst uns
+        gemeinsam diese wertvollen Momente für immer festhalten!
+      </p>
+    </div>
+    <p class="cta">
+      <a class="btn-text" routerLink="/portfolio/"
+        >Portfolio ansehen <span class="arrow" aria-hidden="true">⟶</span></a
+      >
+    </p>
+  </div>
+  <figure class="about-image">
+    <img
+      [appImg]="portrait.key"
+      [alt]="portrait.alt"
+      sizes="(min-width: 1024px) 40vw, 94vw"
+      [maxWidth]="1440"
+    />
+  </figure>
+</section>
+
+@for (f of features; track f.href) {
+  <section
+    class="page-box feature"
+    [class.feature--image-first]="f.imageFirst"
+    [attr.aria-labelledby]="'feature-' + $index"
+  >
+    <figure class="feature-image">
+      <a [routerLink]="f.href" tabindex="-1" aria-hidden="true">
+        <img
+          [appImg]="f.image"
+          [alt]="f.alt"
+          sizes="(min-width: 1024px) 45vw, 94vw"
+          [maxWidth]="1440"
+        />
+      </a>
+    </figure>
+    <div class="feature-text">
+      <h2 [id]="'feature-' + $index">
+        <a [routerLink]="f.href">{{ f.title }}</a>
+      </h2>
+      <div class="prose">
+        <p>{{ f.text }}</p>
+      </div>
+      <p class="cta">
+        <a class="btn-text" [routerLink]="f.href"
+          >Mehr erfahren <span class="arrow" aria-hidden="true">⟶</span></a
+        >
+      </p>
+    </div>
+  </section>
+}

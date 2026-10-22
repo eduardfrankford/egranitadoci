@@ -1,0 +1,114 @@
+<header class="site-header">
+  <div class="brand">
+    <a routerLink="/" class="brand-link" aria-label="Egranita Doci – zur Startseite">
+      <img
+        src="logo-380.webp"
+        srcset="logo-380.webp 380w, logo-760.webp 760w"
+        sizes="(max-width: 640px) 200px, 300px"
+        width="1777"
+        height="1065"
+        alt="Egranita Doci – Storytelling Photography"
+        fetchpriority="high"
+      />
+    </a>
+  </div>
+
+  <button
+    type="button"
+    class="nav-toggle"
+    (click)="toggleMenu()"
+    [attr.aria-expanded]="menuOpen()"
+    aria-controls="site-nav"
+    aria-label="Menü öffnen oder schließen"
+  >
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+      @if (menuOpen()) {
+        <path
+          d="M5 5l14 14M19 5L5 19"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+        />
+      } @else {
+        <path
+          d="M3 6h18M3 12h18M3 18h18"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+        />
+      }
+    </svg>
+    <span class="nav-toggle-label">Menü</span>
+  </button>
+
+  <nav id="site-nav" class="site-nav" [class.open]="menuOpen()" aria-label="Hauptnavigation">
+    <ul>
+      <li>
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          ariaCurrentWhenActive="page"
+          >Home</a
+        >
+      </li>
+      <li>
+        <a routerLink="/ueber_mich/" routerLinkActive="active" ariaCurrentWhenActive="page"
+          >Über mich</a
+        >
+      </li>
+      <li class="has-sub" routerLinkActive="active-parent" [class.open]="subOpen()">
+        <button
+          type="button"
+          class="sub-toggle"
+          (click)="toggleSub()"
+          [attr.aria-expanded]="subOpen()"
+          aria-controls="sub-portfolio"
+        >
+          Portfolio
+          <svg
+            class="chevron"
+            viewBox="0 0 24 24"
+            width="14"
+            height="14"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M6 9l6 6 6-6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <ul id="sub-portfolio" class="sub-menu" aria-label="Portfolio">
+          @for (item of services; track item.path) {
+            <li>
+              <a [routerLink]="item.path" routerLinkActive="active" ariaCurrentWhenActive="page">{{
+                item.label
+              }}</a>
+            </li>
+          }
+        </ul>
+      </li>
+      <li>
+        <a routerLink="/leistungen/" routerLinkActive="active" ariaCurrentWhenActive="page"
+          >Leistungen</a
+        >
+      </li>
+      <li>
+        <a routerLink="/kontakt/" routerLinkActive="active" ariaCurrentWhenActive="page">Kontakt</a>
+      </li>
+      <li>
+        <a routerLink="/shootings/" routerLinkActive="active" ariaCurrentWhenActive="page"
+          >Shootings</a
+        >
+      </li>
+    </ul>
+  </nav>
+</header>

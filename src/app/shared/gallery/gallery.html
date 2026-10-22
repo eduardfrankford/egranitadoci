@@ -1,0 +1,78 @@
+<ul
+  class="gallery"
+  [class.gallery--grid]="layout() === 'grid'"
+  [class.gallery--masonry]="layout() === 'masonry'"
+  [style.--cols-lg]="columns()"
+  [style.--aspect]="aspectCss()"
+  [attr.aria-label]="label()"
+>
+  @for (img of images(); track img.key + $index; let i = $index) {
+    <li class="gallery-item">
+      <button
+        type="button"
+        class="gallery-button"
+        (click)="open(i, $event.currentTarget)"
+        [attr.aria-label]="'Bild vergrößern: ' + img.alt"
+      >
+        <img [appImg]="img.key" [alt]="img.alt" [sizes]="sizes()" [maxWidth]="960" />
+      </button>
+    </li>
+  }
+</ul>
+
+<dialog
+  #dlg
+  class="lightbox"
+  aria-label="Bildansicht"
+  (close)="onClosed()"
+  (keydown)="onKey($event)"
+  (click)="onBackdropClick($event)"
+  (pointerdown)="onPointerDown($event)"
+  (pointerup)="onPointerUp($event)"
+>
+  @if (currentImage(); as img) {
+    <figure class="lightbox-figure">
+      <img [appImg]="img.key" [alt]="img.alt" sizes="100vw" />
+      <figcaption>
+        <span class="visually-hidden">Bild</span> {{ current()! + 1 }} / {{ images().length }}
+      </figcaption>
+    </figure>
+  }
+  <button type="button" class="lb-btn lb-close" (click)="close()" aria-label="Schließen">
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false">
+      <path
+        d="M5 5l14 14M19 5L5 19"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+      />
+    </svg>
+  </button>
+  @if (images().length > 1) {
+    <button type="button" class="lb-btn lb-prev" (click)="prev()" aria-label="Vorheriges Bild">
+      <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
+        <path
+          d="M15 5l-7 7 7 7"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+    <button type="button" class="lb-btn lb-next" (click)="next()" aria-label="Nächstes Bild">
+      <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
+        <path
+          d="M9 5l7 7-7 7"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+  }
+</dialog>

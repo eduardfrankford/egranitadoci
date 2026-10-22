@@ -1,0 +1,137 @@
+<article
+  class="page-box content"
+  [class.content--post]="page().kind === 'post'"
+  [class.content--legal]="page().kind === 'legal'"
+  [class.content--blog]="page().kind === 'blog'"
+>
+  @for (b of page().blocks; track $index) {
+    @switch (b.type) {
+      @case ('h1') {
+        <h1 class="content-title">{{ b.text }}</h1>
+      }
+      @case ('heading') {
+        <h2 class="content-heading">{{ b.text }}</h2>
+      }
+      @case ('html') {
+        <div
+          class="prose"
+          [class.prose--center]="page().kind !== 'legal'"
+          [innerHTML]="b.html | trustHtml"
+        ></div>
+      }
+      @case ('image') {
+        <figure class="content-image">
+          <img
+            [appImg]="b.image.key"
+            [alt]="b.image.alt"
+            sizes="(min-width: 1440px) 1352px, 94vw"
+            priority
+            [maxWidth]="1920"
+          />
+        </figure>
+      }
+      @case ('gallery') {
+        <app-gallery
+          class="content-gallery"
+          [images]="b.images"
+          [layout]="b.layout"
+          [columns]="b.columns"
+          [aspect]="b.aspect"
+          [label]="(page().h1 ?? page().title) + ' – Galerie'"
+        />
+      }
+      @case ('cta') {
+        <p class="content-cta">
+          @if (isAnchor(b.href)) {
+            <a class="btn-text" [appScrollTo]="b.href.slice(1)"
+              >{{ b.text }} <span class="arrow" aria-hidden="true">⟶</span></a
+            >
+          } @else {
+            <a class="btn-text" [routerLink]="b.href"
+              >{{ b.text }} <span class="arrow" aria-hidden="true">⟶</span></a
+            >
+          }
+        </p>
+      }
+      @case ('faq') {
+        <section
+          class="content-faq"
+          [attr.aria-labelledby]="b.title ? 'faq-title-' + $index : null"
+        >
+          @if (b.title) {
+            <h2 class="content-heading" [id]="'faq-title-' + $index">{{ b.title }}</h2>
+          }
+          <app-faq [items]="b.items" group="faq" />
+        </section>
+      }
+      @case ('cards') {
+        <section class="content-cards">
+          @if (b.title) {
+            <h2 class="content-heading">{{ b.title }}</h2>
+          }
+          <ul class="card-grid">
+            @for (c of b.items; track c.href) {
+              <li>
+                <a class="card" [routerLink]="c.href">
+                  @if (c.image) {
+                    <img
+                      [appImg]="c.image.key"
+                      [alt]="''"
+                      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 95vw"
+                      [maxWidth]="960"
+                    />
+                  }
+                  <span class="card-body">
+                    <span class="card-title">{{ c.title }}</span>
+                    <span class="card-more">Mehr <span aria-hidden="true">⟶</span></span>
+                  </span>
+                </a>
+              </li>
+            }
+          </ul>
+        </section>
+      }
+      @case ('divider') {
+        <hr class="divider" />
+      }
+      @case ('date') {
+        <p class="content-date">
+          <time [attr.datetime]="b.iso">{{ b.text }}</time>
+        </p>
+      }
+      @case ('contact-info') {
+        <address class="contact-info">
+          <p>
+            <span class="label">Adresse</span> {{ site.address.street }}, {{ site.address.zip }}
+            {{ site.address.city }}
+          </p>
+          <p>
+            <span class="label">Telefon</span>
+            <a [href]="'tel:' + site.phoneE164">{{ site.phoneDisplay }}</a>
+          </p>
+          <p>
+            <span class="label">E-Mail</span>
+            <a [href]="'mailto:' + site.email">{{ site.email }}</a>
+          </p>
+        </address>
+        <p class="content-cta">
+          <a class="btn-text" appScrollTo="kontakt"
+            >Zum Kontaktformular <span class="arrow" aria-hidden="true">⟶</span></a
+          >
+        </p>
+      }
+      @case ('testimonials') {
+        <ul class="testimonials">
+          @for (t of b.items; track t.name) {
+            <li>
+              <blockquote>
+                <p>{{ t.text }}</p>
+                <footer>{{ t.name }}</footer>
+              </blockquote>
+            </li>
+          }
+        </ul>
+      }
+    }
+  }
+</article>

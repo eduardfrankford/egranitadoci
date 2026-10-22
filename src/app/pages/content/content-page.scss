@@ -1,0 +1,206 @@
+:host {
+  display: block;
+}
+
+.content {
+  text-align: center;
+}
+
+.content--legal {
+  text-align: left;
+}
+
+.content-title {
+  margin-bottom: 0.9em;
+}
+
+.content--legal .content-title {
+  text-align: center;
+}
+
+.content-heading {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+.content-image {
+  margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.content-image img {
+  width: 100%;
+  max-height: 72vh;
+  object-fit: cover;
+}
+
+.content--post .content-title {
+  max-width: 24ch;
+  margin-inline: auto;
+}
+
+.content-date {
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.content-gallery {
+  display: block;
+  margin: clamp(1.5rem, 3vw, 2.5rem) 0;
+}
+
+.content-cta {
+  margin: 1.5rem 0 2rem;
+}
+
+.content-faq {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+.content--blog {
+  padding-top: var(--box-pad-y);
+}
+
+/* ---- Karten (Shootings-Übersicht, "Das könnte dich interessieren") ---- */
+
+.card-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 24px);
+}
+
+@media (max-width: 1023px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 559px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--c-heading);
+  color: #fff;
+  border-bottom: 3px solid var(--c-accent);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    transform 0.8s var(--ease),
+    opacity 0.4s;
+}
+
+.card-body {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1.2rem;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(20, 22, 23, 0.15), rgba(20, 22, 23, 0.55));
+  transition: background 0.3s;
+}
+
+.card-title {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+  overflow-wrap: anywhere;
+}
+
+.card-more {
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.75rem;
+  opacity: 0.85;
+  transition: transform 0.3s var(--ease);
+}
+
+.card:hover img,
+.card:focus-visible img {
+  transform: scale(1.05);
+}
+
+.card:hover .card-body,
+.card:focus-visible .card-body {
+  background: linear-gradient(180deg, rgba(20, 22, 23, 0.3), rgba(20, 22, 23, 0.7));
+}
+
+.card:hover .card-more {
+  transform: translateX(4px);
+}
+
+/* ---- Kontaktinfos ---- */
+
+.contact-info {
+  font-style: normal;
+  margin: 2rem auto 1rem;
+}
+
+.contact-info p {
+  margin-bottom: 0.4rem;
+}
+
+.contact-info .label {
+  display: inline-block;
+  min-width: 5.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  color: var(--c-heading);
+}
+
+.contact-info a {
+  color: var(--c-heading);
+  text-decoration: underline;
+  text-decoration-color: var(--c-line);
+  text-underline-offset: 0.2em;
+}
+
+/* ---- Kundenstimmen ---- */
+
+.testimonials {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.testimonials blockquote {
+  margin: 0;
+}
+
+.testimonials footer {
+  margin-top: 0.8rem;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--c-heading);
+}
+
+.content--post .content-title {
+  font-size: clamp(1.45rem, 1.05rem + 1.7vw, 2.4rem);
+  letter-spacing: 0.1em;
+  max-width: 32ch;
+}

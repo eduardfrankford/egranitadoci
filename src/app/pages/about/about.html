@@ -1,0 +1,40 @@
+<article class="page-box about">
+  <div class="about-text">
+    <h1>{{ h1() }}</h1>
+    <div class="prose" [innerHTML]="html() | trustHtml"></div>
+    @if (cta(); as c) {
+      <p class="cta">
+        <a class="btn-text" [routerLink]="c.href"
+          >{{ c.text }} <span class="arrow" aria-hidden="true">⟶</span></a
+        >
+      </p>
+    }
+  </div>
+  @if (gallery(); as g) {
+    <div class="about-gallery">
+      <app-gallery
+        [images]="g.images"
+        layout="masonry"
+        [columns]="2"
+        label="Egranita Doci – Fotografin"
+      />
+    </div>
+  }
+</article>
+
+@if (testimonials().length) {
+  <section class="page-box testimonials" aria-labelledby="testimonials-title">
+    <h2 id="testimonials-title">Was meine Kunden sagen</h2>
+    <ul class="testimonial-list">
+      @for (t of testimonials(); track t.name) {
+        <li class="testimonial">
+          <p class="stars" aria-label="5 von 5 Sternen">★★★★★</p>
+          <blockquote>
+            <p>{{ t.text }}</p>
+            <footer>{{ t.name }}</footer>
+          </blockquote>
+        </li>
+      }
+    </ul>
+  </section>
+}

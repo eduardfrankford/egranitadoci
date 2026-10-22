@@ -1,0 +1,55 @@
+:host {
+  display: block;
+}
+
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+}
+
+.about-text {
+  text-align: center;
+}
+
+.cta {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 1023px) {
+  .about {
+    grid-template-columns: 1fr;
+  }
+}
+
+.testimonials {
+  text-align: center;
+}
+
+.testimonial-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: clamp(20px, 3vw, 40px);
+}
+
+.stars {
+  color: var(--c-heading);
+  letter-spacing: 0.3em;
+  margin-bottom: 0.8rem;
+}
+
+.testimonial blockquote {
+  margin: 0;
+}
+
+.testimonial footer {
+  margin-top: 0.8rem;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--c-heading);
+}

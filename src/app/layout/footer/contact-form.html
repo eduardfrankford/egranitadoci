@@ -1,0 +1,136 @@
+<form
+  class="contact-form"
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  novalidate
+  aria-describedby="form-hint"
+>
+  <p id="form-hint" class="visually-hidden">Felder mit Stern sind Pflichtfelder.</p>
+
+  <div class="field">
+    <label for="cf-name">Name <span aria-hidden="true">*</span></label>
+    <input
+      id="cf-name"
+      type="text"
+      formControlName="name"
+      autocomplete="name"
+      placeholder="Name"
+      required
+      [attr.aria-invalid]="invalid('name')"
+    />
+    @if (invalid('name')) {
+      <p class="error" role="alert">Bitte gib deinen Namen an.</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="cf-email">E-Mail <span aria-hidden="true">*</span></label>
+    <input
+      id="cf-email"
+      type="email"
+      formControlName="email"
+      autocomplete="email"
+      placeholder="E-Mail"
+      required
+      [attr.aria-invalid]="invalid('email')"
+    />
+    @if (invalid('email')) {
+      <p class="error" role="alert">Bitte gib eine gültige E-Mail-Adresse an.</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="cf-phone">Telefonnummer</label>
+    <input
+      id="cf-phone"
+      type="tel"
+      formControlName="phone"
+      autocomplete="tel"
+      placeholder="Telefonnummer"
+      [attr.aria-invalid]="invalid('phone')"
+    />
+    @if (invalid('phone')) {
+      <p class="error" role="alert">
+        Bitte nur Ziffern und Telefonzeichen (+, -, /, Leerzeichen) verwenden.
+      </p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="cf-message">Nachricht</label>
+    <textarea
+      id="cf-message"
+      formControlName="message"
+      rows="4"
+      placeholder="Schreibe eine Nachricht"
+    ></textarea>
+  </div>
+
+  <div class="field">
+    <label for="cf-source">Wie hast du mich gefunden?</label>
+    <textarea
+      id="cf-source"
+      formControlName="source"
+      rows="2"
+      placeholder="Google / Social Media / Bekannte …"
+    ></textarea>
+  </div>
+
+  <!-- Honeypot: für Menschen unsichtbar, Bots füllen es aus -->
+  <div class="hp" aria-hidden="true">
+    <label for="cf-gotcha">Bitte dieses Feld leer lassen</label>
+    <input id="cf-gotcha" type="text" formControlName="_gotcha" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="field field--consent">
+    <input
+      id="cf-consent"
+      type="checkbox"
+      formControlName="consent"
+      required
+      [attr.aria-invalid]="invalid('consent')"
+    />
+    <label for="cf-consent">
+      Ich habe die <a href="datenschutz/">Datenschutzerklärung</a> gelesen und bin einverstanden,
+      dass meine Angaben zur Beantwortung meiner Anfrage verarbeitet werden.
+      <span aria-hidden="true">*</span>
+    </label>
+  </div>
+  @if (invalid('consent')) {
+    <p class="error" role="alert">Bitte bestätige die Datenschutzerklärung.</p>
+  }
+
+  <div class="actions">
+    <button type="submit" class="btn-solid" [disabled]="state() === 'sending'">
+      @if (state() === 'sending') {
+        Wird gesendet …
+      } @else {
+        Absenden
+      }
+    </button>
+  </div>
+
+  <div class="status" aria-live="polite">
+    @switch (state()) {
+      @case ('sent') {
+        <p class="ok">
+          Danke! Deine Nachricht ist angekommen – ich melde mich so bald wie möglich bei dir.
+        </p>
+      }
+      @case ('mailto') {
+        <p class="ok">
+          Dein E-Mail-Programm wurde mit deiner Nachricht geöffnet. Falls nichts passiert ist,
+          schreib mir bitte direkt an <a [href]="'mailto:' + site.email">{{ site.email }}</a
+          >.
+        </p>
+      }
+      @case ('error') {
+        <p class="error">
+          Leider hat das Senden nicht geklappt. Bitte versuche es später noch einmal oder schreib
+          mir direkt an <a [href]="'mailto:' + site.email">{{ site.email }}</a
+          >.
+        </p>
+      }
+    }
+  </div>
+</form>

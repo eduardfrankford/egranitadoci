@@ -1,0 +1,72 @@
+<section
+  class="hero"
+  aria-roledescription="Karussell"
+  aria-label="Ausgewählte Fotos"
+  (mouseenter)="paused.set(true)"
+  (mouseleave)="paused.set(false)"
+  (focusin)="paused.set(true)"
+  (focusout)="paused.set(false)"
+>
+  <div class="track">
+    @for (s of slides(); track s.key; let i = $index) {
+      <div
+        class="slide"
+        [class.active]="i === index()"
+        [attr.aria-hidden]="i !== index()"
+        role="group"
+        aria-roledescription="Folie"
+        [attr.aria-label]="i + 1 + ' von ' + count()"
+      >
+        @if (isLoaded(i)) {
+          <img
+            [appImg]="s.key"
+            [alt]="s.alt"
+            sizes="(min-width: 1440px) 1352px, 94vw"
+            [priority]="i === 0"
+            [maxWidth]="1920"
+          />
+        }
+      </div>
+    }
+  </div>
+
+  @if (count() > 1) {
+    <button type="button" class="arrow prev" (click)="prev()" aria-label="Vorheriges Bild">
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false">
+        <path
+          d="M15 5l-7 7 7 7"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+    <button type="button" class="arrow next" (click)="next()" aria-label="Nächstes Bild">
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false">
+        <path
+          d="M9 5l7 7-7 7"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+    <div class="dots" role="tablist" aria-label="Bild auswählen">
+      @for (s of slides(); track s.key; let i = $index) {
+        <button
+          type="button"
+          role="tab"
+          class="dot"
+          [class.active]="i === index()"
+          [attr.aria-selected]="i === index()"
+          (click)="go(i)"
+          [attr.aria-label]="'Bild ' + (i + 1)"
+        ></button>
+      }
+    </div>
+  }
+</section>

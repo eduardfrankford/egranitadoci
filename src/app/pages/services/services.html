@@ -1,0 +1,49 @@
+<article class="page-box services">
+  <h1>Meine Leistungen und Preise im Überblick</h1>
+  <div class="prose prose--center">
+    <p>
+      Hier findest du meine aktuellen Pakete für Schwangerschafts-, Newborn-, Familien- und
+      Reportage-Shootings in Innsbruck, Tirol und darüber hinaus. Du hast Fragen oder einen
+      besonderen Wunsch? Schreib mir einfach – gemeinsam finden wir das passende Paket.
+    </p>
+  </div>
+
+  <div class="price-card">
+    <h2 class="price-card-title">Preisliste</h2>
+    @for (cat of priceList; track cat.title) {
+      <section class="price-group" [attr.aria-labelledby]="'price-' + $index">
+        <h3 [id]="'price-' + $index">{{ cat.title }}</h3>
+        @if (cat.note) {
+          <p class="price-note">{{ cat.note }}</p>
+        }
+        <dl class="price-items">
+          @for (item of cat.items; track item.label) {
+            <div class="price-item">
+              <dt>{{ item.label }}</dt>
+              <dd>
+                @if (item.price !== null) {
+                  <span class="visually-hidden">Preis: </span>€ {{ item.price }},-
+                } @else {
+                  {{ item.note }}
+                }
+              </dd>
+            </div>
+          }
+        </dl>
+      </section>
+    }
+  </div>
+
+  <p class="cta">
+    <a class="btn-text" appScrollTo="kontakt"
+      >Jetzt Shooting ausmachen <span class="arrow" aria-hidden="true">⟶</span></a
+    >
+  </p>
+  <p class="download">
+    <a
+      href="img/brown-modern-price-list-instagram-story-1440.webp"
+      download="Preisliste-Egranita-Doci.webp"
+      >Preisliste als Bild herunterladen</a
+    >
+  </p>
+</article>
